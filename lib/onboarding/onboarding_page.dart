@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:diploma_work_mobile/components/base_page_nobar_widget.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Onboarding"),
+    return BasePageNoBarWidget(
+      child: PageView(
+        children: [
+
+        ],
       ),
-      body: Container(),
     );
   }
 }
