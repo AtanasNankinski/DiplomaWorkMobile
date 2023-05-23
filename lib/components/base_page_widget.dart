@@ -14,7 +14,7 @@ class BasePageWidget extends StatelessWidget {
           image: AssetImage(
             'assets/PagesBG.png'
           ),
-          fit: BoxFit.fitHeight
+          fit: BoxFit.cover
         )
       ),
       child: Scaffold(
@@ -27,9 +27,18 @@ class BasePageWidget extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: child,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return ConstrainedBox(
+                constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: child,
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),

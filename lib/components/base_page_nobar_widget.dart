@@ -13,7 +13,7 @@ class BasePageNoBarWidget extends StatelessWidget {
               image: AssetImage(
                   'assets/PagesBG.png'
               ),
-              fit: BoxFit.fitHeight
+              fit: BoxFit.cover
           )
       ),
       child: Scaffold(
