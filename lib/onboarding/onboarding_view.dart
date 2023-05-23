@@ -9,15 +9,37 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Text(title),
-          SizedBox(height: 30,),
-          Text(content),
-          SizedBox(height: 30,),
-          button
-        ],
+      child: SizedBox(
+        height: height,
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 30),
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                child: Text(
+                  content,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+              const Spacer(),
+              button,
+            ],
+          ),
+        ),
       ),
     );
   }

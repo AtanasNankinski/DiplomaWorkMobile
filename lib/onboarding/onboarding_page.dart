@@ -4,15 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/onboarding/onboarding_view.dart';
 import 'package:diploma_work_mobile/components/base_page_nobar_widget.dart';
+import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
 
-class OnboardingPage extends StatefulWidget {
+class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
 
   @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
+  ConsumerState<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   final pageController = PageController(initialPage: 0);
 
   @override
@@ -30,13 +31,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
         controller: pageController,
         children: [
           OnboardingView(
-            title: "Page 1",
-            content: "Content",
-            button: onboardingButton(
+            title: "Welcome",
+            content: "Airsoft Kings mobile is out and ready for you - waste no time and jump right to it!",
+            button: primaryButton(
               onPressed: () {
                 pageController.animateToPage(
                   1,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut,
                 );
               },
@@ -44,60 +45,45 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
           OnboardingView(
-            title: "Page 2",
-            content: "Content",
-            button: onboardingButton(
+            title: "What is Airsoft Kings Mobile?",
+            content: "This is mobile application for organizing airsoft games by Airsoft Kings. You can see the game’s location and additional information.",
+            button: primaryButton(
               onPressed: (){
-
+                pageController.animateToPage(
+                  2,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
               },
               content: "Next",
             ),
           ),
           OnboardingView(
-            title: "Page 3",
-            content: "Content",
-            button: onboardingButton(
-              onPressed: (){},
+            title: "So only games?",
+            content: "Actually no, here you can also see who else is playing in a game, with what replica, what teams are participating and customize your experience!",
+            button: primaryButton(
+              onPressed: (){
+                pageController.animateToPage(
+                  3,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              },
               content: "Next",
             ),
           ),
           OnboardingView(
-            title: "Page 4",
-            content: "Content",
-            button: onboardingButton(
-              onPressed: (){},
+            title: "Sounds exciting already?",
+            content: "Enough talking - better see for yourself. It’s time to experience airsoft at a whole new level! Are you ready?",
+            button: primaryButton(
+              onPressed: (){
+                print("Pressed Get Strted buttn!");
+              },
               content: "Get Started",
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-Widget onboardingButton({required VoidCallback onPressed, required String content}){
-  return ElevatedButton(
-    onPressed: onPressed,
-    child: Text(content),
-  );
-}
-
-final StateNotifierProvider<PageViewNotifier, int> pageViewProvider = StateNotifierProvider(
-    (ref) => PageViewNotifier(),
-);
-
-class PageViewNotifier extends StateNotifier<int> {
-  PageViewNotifier() : super(0);
-
-  void next() {
-    if(state < 4){
-      state++;
-    }
-  }
-
-  void previous() {
-    if(state < 1){
-      state--;
-    }
   }
 }
