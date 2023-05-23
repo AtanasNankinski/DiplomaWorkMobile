@@ -1,7 +1,10 @@
-import 'package:diploma_work_mobile/onboarding/onboarding_page.dart';
-import 'package:diploma_work_mobile/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:diploma_work_mobile/onboarding/onboarding_page.dart';
+import 'package:diploma_work_mobile/theme/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +17,7 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()),);
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: mainTheme,
       debugShowCheckedModeBanner: false,
-      home: const OnboardingPage(),
+      home: OnboardingPage(),
     );
   }
 }

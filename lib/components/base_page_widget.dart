@@ -27,8 +27,9 @@ class BasePageWidget extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-              child: child
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: child,
           ),
         ),
       ),
