@@ -6,6 +6,7 @@ import 'package:diploma_work_mobile/onboarding/onboarding_view.dart';
 import 'package:diploma_work_mobile/components/base_page_nobar_widget.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
 import 'package:diploma_work_mobile/onboarding/onboarding_provider.dart';
+import 'package:diploma_work_mobile/navigation/routing_constants.dart';
 
 class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -78,8 +79,9 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             content: "Enough talking - better see for yourself. It’s time to experience airsoft at a whole new level! Are you ready?",
             button: primaryButton(
               onPressed: (){
-                print("Pressed Get Strted buttn!");
+                print("Pressed Get Started button!");
                 ref.read(onboardingProvider.notifier).setOnboarding(true);
+                Navigator.pushNamed(context, RoutingConst.registerRoute);
               },
               content: "Get Started",
             ),

@@ -3,10 +3,13 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/onboarding/onboarding_page.dart';
 import 'package:diploma_work_mobile/theme/theme.dart';
+import 'package:diploma_work_mobile/navigation/routing.dart';
+import 'package:diploma_work_mobile/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/control_widget/control_widget.dart';
+import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
@@ -17,7 +20,13 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(ProviderScope(child: MyApp()),);
+  await SharedPreferencesService().setup();
+
+  runApp(
+    const ProviderScope(
+      child: MyApp()
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,10 +35,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Airsoft Kings Mobile',
+      onGenerateRoute: Routing.generateRoute,
+      initialRoute: RoutingConst.defaultRoute,
       theme: mainTheme,
       debugShowCheckedModeBanner: false,
-      home: OnboardingPage(),
+      home: const ControlWidget(),
     );
   }
 }
