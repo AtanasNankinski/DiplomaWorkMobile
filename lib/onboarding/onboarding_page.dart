@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:diploma_work_mobile/onboarding/onboarding_view.dart';
 import 'package:diploma_work_mobile/components/base_page_nobar_widget.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
+import 'package:diploma_work_mobile/onboarding/onboarding_provider.dart';
 
 class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -25,8 +26,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     return BasePageNoBarWidget(
       child: PageView(
         scrollDirection: Axis.horizontal,
@@ -80,6 +79,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             button: primaryButton(
               onPressed: (){
                 print("Pressed Get Strted buttn!");
+                ref.read(onboardingProvider.notifier).setOnboarding(true);
               },
               content: "Get Started",
             ),
