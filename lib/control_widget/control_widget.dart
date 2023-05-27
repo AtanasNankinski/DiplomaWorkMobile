@@ -19,7 +19,7 @@ class ControlWidget extends ConsumerWidget {
     return isLoggedIn
         ? const DashboardPage()
         : hasSeenOnboarding
-          ? const RegisterPage()
+          ? RegisterPage()
           : const OnboardingPage();
   }
 }

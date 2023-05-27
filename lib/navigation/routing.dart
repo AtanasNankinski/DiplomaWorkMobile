@@ -21,7 +21,7 @@ class Routing {
         );
       case RoutingConst.registerRoute:
         return MaterialPageRoute(
-          builder: (context) => const RegisterPage(),
+          builder: (context) => RegisterPage(),
           settings: settings,
         );
       default:

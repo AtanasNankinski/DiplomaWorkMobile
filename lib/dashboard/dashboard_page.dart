@@ -1,4 +1,4 @@
-import 'package:diploma_work_mobile/components/base_page_widget.dart';
+import 'package:diploma_work_mobile/components/base_layouts/base_page_widget.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
