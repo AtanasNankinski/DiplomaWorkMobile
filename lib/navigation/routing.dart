@@ -16,7 +16,7 @@ class Routing {
         );
       case RoutingConst.loginRoute:
         return MaterialPageRoute(
-          builder: (context) => const LoginPage(),
+          builder: (context) => LoginPage(),
           settings: settings,
         );
       case RoutingConst.registerRoute:

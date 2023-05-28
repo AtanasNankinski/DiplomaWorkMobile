@@ -1,14 +1,15 @@
+import 'package:diploma_work_mobile/components/text_inputs/default_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/components/base_layouts/base_page_nobar_widget.dart';
 import 'package:diploma_work_mobile/components/base_layouts/post_base_layout.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
-import 'package:diploma_work_mobile/auth/register_providers.dart';
-import 'package:diploma_work_mobile/components/text_inputs/confirm_password_input.dart';
-import 'package:diploma_work_mobile/components/text_inputs/email_input.dart';
-import 'package:diploma_work_mobile/components/text_inputs/password_input.dart';
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/theme/theme_colors.dart';
 
 class RegisterPage extends ConsumerWidget {
   RegisterPage({Key? key}) : super(key: key);
@@ -33,12 +34,17 @@ class RegisterPage extends ConsumerWidget {
               ),
             ),
             const Spacer(),
-            EmailTextInput(controller: _emailController),
-            PasswordInputField(
-              controller: _passwordController,
+              DefaultInputField(
+                controller: _emailController,
+                inputType: TextFieldType.email,
             ),
-            ConfirmPasswordInputField(
+            DefaultInputField(
+              controller: _passwordController,
+              inputType: TextFieldType.password,
+            ),
+            DefaultInputField(
               controller: _confirmPasswordController,
+              inputType: TextFieldType.passwordConfirmation,
             ),
             Center(
               child: Text(
@@ -50,7 +56,7 @@ class RegisterPage extends ConsumerWidget {
             ),
             const Spacer(),
             Container(
-              margin: const EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20, bottom: 4),
               child: primaryButton(
                 onPressed: (){
                   ref.read(registerProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text, confirmPassword: _confirmPasswordController.text);
@@ -59,6 +65,27 @@ class RegisterPage extends ConsumerWidget {
                 content: 'Register',
               ),
             ),
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  text: "Already have an account? ",
+                  style: Theme.of(context).textTheme.bodySmall,
+                  children: [
+                    TextSpan(
+                      text: "Login",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: colorTextGreen,
+                        fontWeight: FontWeight.bold
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = (){
+                          Navigator.pushNamed(context, RoutingConst.loginRoute);
+                        }
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
