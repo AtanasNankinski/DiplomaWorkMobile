@@ -27,6 +27,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final readState = ref.read(onboardingProvider.notifier);
+
     return BasePageNoBarWidget(
       child: PageView(
         scrollDirection: Axis.horizontal,
@@ -82,8 +84,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             content: "Enough talking - better see for yourself. It’s time to experience airsoft at a whole new level! Are you ready?",
             button: primaryButton(
               onPressed: (){
-                print("Pressed Get Started button!");
-                ref.read(onboardingProvider.notifier).setOnboarding(true);
+                readState.setOnboarding(true);
                 Navigator.pushNamed(context, RoutingConst.registerRoute);
               },
               context: context,

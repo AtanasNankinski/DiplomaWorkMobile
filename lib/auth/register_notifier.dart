@@ -2,8 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/register_model.dart';
 
-class RegisterNotifier extends StateNotifier<RegisterModel>{
-  RegisterNotifier() : super(RegisterModel(email: "", password: "", confirmPassword: "", errorText: ""));
+class RegisterNotifier extends Notifier<RegisterModel>{
+  @override
+  RegisterModel build() {
+    return RegisterModel(email: "", password: "", confirmPassword: "", errorText: "");
+  }
 
   void updateData({
     required String email,

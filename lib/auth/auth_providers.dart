@@ -2,11 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/register_notifier.dart';
 import 'package:diploma_work_mobile/auth/register_model.dart';
+import 'package:diploma_work_mobile/auth/login_model.dart';
+import 'package:diploma_work_mobile/auth/login_notifier.dart';
 
-final registerProvider = StateNotifierProvider.autoDispose<RegisterNotifier, RegisterModel>(
-      (ref) => RegisterNotifier(),
+final registerProvider = NotifierProvider<RegisterNotifier, RegisterModel>(
+      () => RegisterNotifier(),
 );
 
-final passwordFieldObscureProviderMain = StateProvider.autoDispose<bool>(
-      (ref) => true,
+final loginProvider = NotifierProvider<LoginNotifier, LoginModel>(
+      () => LoginNotifier(),
 );
