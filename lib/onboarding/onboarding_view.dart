@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:diploma_work_mobile/components/post_base_layout.dart';
+import 'package:diploma_work_mobile/components/base_layouts/post_base_layout.dart';
 
 class OnboardingView extends StatelessWidget {
   final String title;

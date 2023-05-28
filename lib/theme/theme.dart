@@ -32,6 +32,13 @@ TextTheme textTheme = TextTheme(
         fontWeight: FontWeight.w400,
       )
   ),
+  bodySmall: GoogleFonts.inter(
+    textStyle: TextStyle(
+      color: colorTextMain,
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    ),
+  )
 );
 
 ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
@@ -48,7 +55,7 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
     textStyle: GoogleFonts.inter(
         textStyle: const TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.bold,
         )
     ),
   ),

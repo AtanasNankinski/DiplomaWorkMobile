@@ -1,16 +1,89 @@
+import 'package:diploma_work_mobile/components/text_inputs/default_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
-import 'package:diploma_work_mobile/components/base_page_nobar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:diploma_work_mobile/components/base_layouts/base_page_nobar_widget.dart';
+import 'package:diploma_work_mobile/components/base_layouts/post_base_layout.dart';
+import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
+import 'package:diploma_work_mobile/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/auth/login_providers.dart';
+
 class LoginPage extends ConsumerWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BasePageNoBarWidget(
-      child: Center(
-        child: Text("Login Page"),
+      child: PostBaseLayout(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: Text(
+                "Login",
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+            ),
+            const Spacer(),
+            DefaultInputField(
+              controller: _emailController,
+              inputType: TextFieldType.email,
+            ),
+            DefaultInputField(
+              controller: _passwordController,
+              inputType: TextFieldType.password,
+            ),
+            Center(
+              child: Text(
+                ref.watch(loginProvider).errorText,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            const Spacer(),
+            Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 4),
+              child: primaryButton(
+                onPressed: (){
+                  ref.read(loginProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text);
+                  ref.read(loginProvider.notifier).validateData();
+                },
+                context: context,
+                content: 'Login',
+              ),
+            ),
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  text: "Don't have an account? ",
+                  style: Theme.of(context).textTheme.bodySmall,
+                  children: [
+                    TextSpan(
+                        text: "Register",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: colorTextGreen,
+                            fontWeight: FontWeight.bold
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = (){
+                            Navigator.pushNamed(context, RoutingConst.registerRoute);
+                          }
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
