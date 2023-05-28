@@ -1,5 +1,6 @@
-import 'package:diploma_work_mobile/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'package:diploma_work_mobile/theme/theme_colors.dart';
 
 Widget primaryButton({
   required VoidCallback onPressed,

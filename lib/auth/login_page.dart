@@ -1,4 +1,3 @@
-import 'package:diploma_work_mobile/components/text_inputs/default_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
@@ -10,6 +9,7 @@ import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
 import 'package:diploma_work_mobile/navigation/routing_constants.dart';
 import 'package:diploma_work_mobile/theme/theme_colors.dart';
 import 'package:diploma_work_mobile/auth/login_providers.dart';
+import 'package:diploma_work_mobile/components/text_inputs/default_input.dart';
 
 class LoginPage extends ConsumerWidget {
   LoginPage({Key? key}) : super(key: key);
