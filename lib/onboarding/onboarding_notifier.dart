@@ -1,15 +1,32 @@
+import 'package:diploma_work_mobile/error/error_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
 
-class OnboardingNotifier extends StateNotifier<bool> {
-  OnboardingNotifier() : super(SharedPreferencesService().getOnboarding());
+class OnboardingNotifier extends Notifier<bool> {
+  @override
+  bool build() {
+    try {
+      return SharedPreferencesService().getOnboarding();
+    } catch(e) {
+      ref.read(errorProvider.notifier).createException(exception: e.toString(), errorTitle: "Shared Pref Error");
+      return false;
+    }
+  }
 
   void getOnboarding() {
-    state = SharedPreferencesService().getOnboarding();
+    try {
+      state = SharedPreferencesService().getOnboarding();
+    } catch(e) {
+      ref.read(errorProvider.notifier).createException(exception: e.toString(), errorTitle: "Shared Pref Error");
+    }
   }
 
   Future<void> setOnboarding(bool onboarding) async {
-    await SharedPreferencesService().setOnboarding(onboarding);
+    try {
+      await SharedPreferencesService().setOnboarding(onboarding);
+    } catch(e) {
+      ref.read(errorProvider.notifier).createException(exception: e.toString(), errorTitle: "Shared Pref Error");
+    }
   }
 }

@@ -2,8 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/login_model.dart';
 
-class LoginNotifier extends StateNotifier<LoginModel>{
-  LoginNotifier() : super(LoginModel(email: "", password: "", errorText: ""));
+class LoginNotifier extends Notifier<LoginModel>{
+  @override
+  LoginModel build() {
+    return LoginModel(email: "", password: "", errorText: "");
+  }
 
   void updateData({
     required String email,

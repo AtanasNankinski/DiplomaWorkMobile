@@ -1,9 +1,10 @@
+import 'package:diploma_work_mobile/components/buttons/error_button.dart';
+import 'package:diploma_work_mobile/error/error_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/theme/theme_colors.dart';
-import 'package:diploma_work_mobile/error/error_provider.dart';
 
 class ErrorDialog extends ConsumerWidget {
   const ErrorDialog({Key? key, required this.title, required this.errorContent}) : super(key: key);
@@ -13,6 +14,8 @@ class ErrorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final readState = ref.read(errorProvider.notifier);
+
     return SizedBox.expand(
       child: Container(
         padding: const EdgeInsets.all(40),
@@ -40,26 +43,11 @@ class ErrorDialog extends ConsumerWidget {
                   textAlign: TextAlign.left,
                 ),
                 const SizedBox(height: 20,),
-                ElevatedButton(
-                  onPressed: (){
-                    ref.read(errorProvider.notifier).disbandError();
+                errorButton(
+                  context: context,
+                  onPressed: () {
+                    readState.disbandError();
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: colorButtonError,
-                    minimumSize: const Size(100, 40),
-                    elevation: 0,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    "OK",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
                 ),
               ]
             ),
