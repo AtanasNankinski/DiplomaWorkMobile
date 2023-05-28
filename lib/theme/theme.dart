@@ -55,7 +55,7 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
     textStyle: GoogleFonts.inter(
         textStyle: const TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.bold,
         )
     ),
   ),

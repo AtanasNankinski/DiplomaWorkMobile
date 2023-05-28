@@ -62,6 +62,7 @@ class RegisterPage extends ConsumerWidget {
                   ref.read(registerProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text, confirmPassword: _confirmPasswordController.text);
                   ref.read(registerProvider.notifier).validateData();
                 },
+                context: context,
                 content: 'Register',
               ),
             ),

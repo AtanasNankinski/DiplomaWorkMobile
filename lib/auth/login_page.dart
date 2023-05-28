@@ -28,7 +28,7 @@ class LoginPage extends ConsumerWidget {
             Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: Text(
-                "Register",
+                "Login",
                 style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
@@ -57,24 +57,25 @@ class LoginPage extends ConsumerWidget {
                   ref.read(loginProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text);
                   ref.read(loginProvider.notifier).validateData();
                 },
-                content: 'Register',
+                context: context,
+                content: 'Login',
               ),
             ),
             Center(
               child: RichText(
                 text: TextSpan(
-                  text: "Already have an account? ",
+                  text: "Don't have an account? ",
                   style: Theme.of(context).textTheme.bodySmall,
                   children: [
                     TextSpan(
-                        text: "Login",
+                        text: "Register",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: colorTextGreen,
                             fontWeight: FontWeight.bold
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = (){
-                            Navigator.pushNamed(context, RoutingConst.loginRoute);
+                            Navigator.pushNamed(context, RoutingConst.registerRoute);
                           }
                     )
                   ],

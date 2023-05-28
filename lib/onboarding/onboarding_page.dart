@@ -43,6 +43,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   curve: Curves.easeInOut,
                 );
               },
+              context: context,
               content: "Next",
             ),
           ),
@@ -57,6 +58,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   curve: Curves.easeInOut,
                 );
               },
+              context: context,
               content: "Next",
             ),
           ),
@@ -71,6 +73,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   curve: Curves.easeInOut,
                 );
               },
+              context: context,
               content: "Next",
             ),
           ),
@@ -83,6 +86,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 ref.read(onboardingProvider.notifier).setOnboarding(true);
                 Navigator.pushNamed(context, RoutingConst.registerRoute);
               },
+              context: context,
               content: "Get Started",
             ),
           ),
