@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:diploma_work_mobile/auth/user_model.dart';
+
 class SharedPreferencesService {
   static final SharedPreferencesService _instance = SharedPreferencesService._internal();
 
@@ -27,8 +29,49 @@ class SharedPreferencesService {
       return false;
     }
   }
+
+  Future<void> setUser(int id, String name, String email, int userType, String token) async {
+    await sharedPreferences.setInt(SharedPreferencesKeys.authId.toString(), id);
+    await sharedPreferences.setString(SharedPreferencesKeys.authName.toString(), name);
+    await sharedPreferences.setString(SharedPreferencesKeys.authEmail.toString(), email);
+    await sharedPreferences.setInt(SharedPreferencesKeys.authUserType.toString(), userType);
+    await sharedPreferences.setString(SharedPreferencesKeys.authToken.toString(), token);
+  }
+
+  Future<void> clearUser() async {
+    await sharedPreferences.remove(SharedPreferencesKeys.authId.toString());
+    await sharedPreferences.remove(SharedPreferencesKeys.authName.toString());
+    await sharedPreferences.remove(SharedPreferencesKeys.authEmail.toString());
+    await sharedPreferences.remove(SharedPreferencesKeys.authUserType.toString());
+    await sharedPreferences.remove(SharedPreferencesKeys.authToken.toString());
+  }
+
+  User getUser(){
+    int? id = sharedPreferences.getInt(SharedPreferencesKeys.authId.toString());
+    String? name = sharedPreferences.getString(SharedPreferencesKeys.authName.toString());
+    String? email = sharedPreferences.getString(SharedPreferencesKeys.authEmail.toString());
+    int? userType = sharedPreferences.getInt(SharedPreferencesKeys.authUserType.toString());
+    String? token = sharedPreferences.getString(SharedPreferencesKeys.authToken.toString());
+
+    if(_checkUserData(id, name, email, userType, token)){
+      return User(id: id!, name: name!, email: email!, userType: userType!, accessToken: token!);
+    }
+    return User(id: null, name: "", email: "", userType: 0, accessToken: "");
+  }
+
+  _checkUserData(int? id, String? name, String? email, int? userType, String? token){
+    if(id != null && name != null && email != null && userType != null && token != null){
+      return true;
+    }
+    return false;
+  }
 }
 
 enum SharedPreferencesKeys {
   onboarding,
+  authId,
+  authName,
+  authEmail,
+  authUserType,
+  authToken,
 }
