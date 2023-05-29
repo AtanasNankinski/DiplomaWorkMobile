@@ -1,9 +1,12 @@
-class ErrorModel {
-  bool showError;
-  String exception;
-  String errorTitle;
+import 'package:flutter/cupertino.dart';
 
-  ErrorModel({
+@immutable
+class ErrorModel {
+  final bool showError;
+  final String exception;
+  final String errorTitle;
+
+  const ErrorModel({
     required this.showError,
     required this.exception,
     required this.errorTitle,
