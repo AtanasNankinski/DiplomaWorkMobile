@@ -1,10 +1,11 @@
-import 'package:diploma_work_mobile/error/error_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/error/error.dart';
 import 'package:diploma_work_mobile/error/error_provider.dart';
+import 'package:diploma_work_mobile/error/error_dialog.dart';
+import 'package:diploma_work_mobile/theme/theme_colors.dart';
 
 
 class BasePageWidget extends ConsumerWidget {
@@ -29,6 +30,17 @@ class BasePageWidget extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          backgroundColor: colorAppBarBG,
+          leading: IconButton(
+            onPressed: () {  },
+            icon: Icon(Icons.menu),
+          ),
+          actions: [
+            IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.notifications),
+            )
+          ],
           title: Center(
             child: Text(
               title
