@@ -21,68 +21,75 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return BasePageNoBarWidget(
       child: PostBaseLayout(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: Text(
-                "Login",
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
-            ),
-            const Spacer(),
-            DefaultInputField(
-              controller: _emailController,
-              inputType: TextFieldType.email,
-            ),
-            DefaultInputField(
-              controller: _passwordController,
-              inputType: TextFieldType.password,
-            ),
-            Center(
-              child: Text(
-                ref.watch(loginProvider).errorText,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.red,
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  "Login",
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
-            ),
-            const Spacer(),
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 4),
-              child: primaryButton(
-                onPressed: (){
-                  ref.read(loginProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text);
-                  ref.read(loginProvider.notifier).validateData();
-                },
-                context: context,
-                content: 'Login',
+              const Spacer(),
+              DefaultInputField(
+                controller: _emailController,
+                inputType: TextFieldType.email,
               ),
-            ),
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  text: "Don't have an account? ",
-                  style: Theme.of(context).textTheme.bodySmall,
-                  children: [
-                    TextSpan(
-                        text: "Register",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: colorTextGreen,
-                            fontWeight: FontWeight.bold
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = (){
-                            Navigator.pushNamed(context, RoutingConst.registerRoute);
-                          }
-                    )
-                  ],
+              DefaultInputField(
+                controller: _passwordController,
+                inputType: TextFieldType.password,
+              ),
+              Center(
+                child: Text(
+                  ref.watch(loginProvider).errorText,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Colors.red,
+                  ),
                 ),
               ),
-            ),
-          ],
+              const Spacer(),
+              Container(
+                margin: const EdgeInsets.only(top: 20, bottom: 4),
+                child: primaryButton(
+                  onPressed: (){
+                    ref.read(loginProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text);
+                    ref.read(loginProvider.notifier).validateData();
+                    if(ref.watch(loginProvider).errorText == ""){
+                      ref.read(authProvider.notifier).login(_emailController.text, _passwordController.text);
+                      Navigator.pushNamed(context, RoutingConst.defaultRoute);
+                    }
+                  },
+                  context: context,
+                  content: 'Login',
+                ),
+              ),
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: Theme.of(context).textTheme.bodySmall,
+                    children: [
+                      TextSpan(
+                          text: "Register",
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: colorTextGreen,
+                              fontWeight: FontWeight.bold
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = (){
+                              Navigator.pushNamed(context, RoutingConst.registerRoute);
+                            }
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

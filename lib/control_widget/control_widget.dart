@@ -6,15 +6,24 @@ import 'package:diploma_work_mobile/auth/register/register_page.dart';
 import 'package:diploma_work_mobile/dashboard/dashboard_page.dart';
 import 'package:diploma_work_mobile/onboarding/onboarding_page.dart';
 import 'package:diploma_work_mobile/onboarding/onboarding_provider.dart';
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
 
 class ControlWidget extends ConsumerWidget {
   const ControlWidget({Key? key}) : super(key: key);
 
-  final bool isLoggedIn = false;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool hasSeenOnboarding = ref.watch(onboardingProvider);
+    final bool isLoggedIn = ref.watch(authProvider).when(data: (data) {
+      if(data.id != null){
+        return true;
+      }
+      return false;
+    }, error: (error, stackTrace) {
+      return false;
+    }, loading: () {
+      return false;
+    });
 
     return isLoggedIn
         ? const DashboardPage()

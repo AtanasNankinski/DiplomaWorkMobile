@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/auth_service.dart';
@@ -21,21 +22,54 @@ class AuthNotifier extends AsyncNotifier<User> {
   }
 
   Future<void> logout() async {
-    try {
-      await authService.logout();
-    } catch(e) {
-      ref.read(errorProvider.notifier).createException(exception: e.toString(), errorTitle: "Server Error");
-    }
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await authService.logout();
+    });
+    state.when(
+      data: (data){},
+      error: (error, stackTrace){
+        ref.read(errorProvider.notifier).createException(exception: error.toString(), errorTitle: "Logout Error");
+      },
+      loading: (){},
+    );
+  }
+
+  Future<void> login(String email, String password) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await authService.login(email, password);
+    });
+    state.when(
+      data: (data){},
+      error: (error, stackTrace){
+        _checkError(error.toString());
+      },
+      loading: (){},
+    );
   }
 
   Future<void> register(String email, String password) async {
-    try {
-      state = AsyncValue.loading();
-      state = await AsyncValue.guard(() async {
-        return await authService.register(email, password);
-      });
-    } catch(e) {
-      ref.read(errorProvider.notifier).createException(exception: "Error occured while registering: $e", errorTitle: "Register Error");
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await authService.register(email, password);
+    });
+    state.when(
+      data: (data) {},
+      error: (error, stackTrace) {
+        _checkError(error.toString());
+      },
+      loading: (){},
+    );
+  }
+
+  void _checkError(String error) async {
+    if(error == '422'){
+      ref.read(registerProvider.notifier).setErrorMessage(errorMessage: "Email is already taken or credentials are incorrect.");
+    }else if(error == '401'){
+      ref.read(registerProvider.notifier).setErrorMessage(errorMessage: "Wrong credentials.");
+    }else {
+      ref.read(errorProvider.notifier).createException(exception: error, errorTitle: "Unknown Error");
     }
   }
 }

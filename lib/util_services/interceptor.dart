@@ -10,8 +10,9 @@ class DioInterceptor extends Interceptor {
     if(user.accessToken.isNotEmpty && user != User(id: null, name: "", email: "", userType: 0, accessToken: "")){
       options.headers['accept'] = 'application/json';
       options.headers['authorization'] = "Bearer ${user.accessToken}";
+    }else {
+      handler.reject(DioError(requestOptions: options, error: "Unauthorized user"));
     }
-    handler.reject(DioError(requestOptions: options, error: "Unauthorized user"));
     super.onRequest(options, handler);
   }
   @override

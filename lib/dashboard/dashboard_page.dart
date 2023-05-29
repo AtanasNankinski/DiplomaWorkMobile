@@ -1,14 +1,33 @@
-import 'package:diploma_work_mobile/components/base_layouts/base_page_widget.dart';
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/components/base_layouts/base_page_widget.dart';
+import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
+
+class DashboardPage extends ConsumerWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return BasePageWidget(
-      child: Center(
-        child: Text("Dashboard Page"),
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Column(
+          children: [
+            const Center(
+              child: Text("Dashboard Page"),
+            ),
+            primaryButton(
+              onPressed: (){
+                ref.read(authProvider.notifier).logout();
+              },
+              content: "Logout",
+              context: context,
+            )
+          ]
+        ),
       ),
       title: "Dashboard",
     );

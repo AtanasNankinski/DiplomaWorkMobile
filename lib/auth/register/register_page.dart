@@ -22,73 +22,79 @@ class RegisterPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return BasePageNoBarWidget(
       child: PostBaseLayout(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: Text(
-                "Register",
-                style: Theme.of(context).textTheme.displayLarge,
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  "Register",
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
               ),
-            ),
-            const Spacer(),
+              const Spacer(),
+                DefaultInputField(
+                  controller: _emailController,
+                  inputType: TextFieldType.email,
+              ),
               DefaultInputField(
-                controller: _emailController,
-                inputType: TextFieldType.email,
-            ),
-            DefaultInputField(
-              controller: _passwordController,
-              inputType: TextFieldType.password,
-            ),
-            DefaultInputField(
-              controller: _confirmPasswordController,
-              inputType: TextFieldType.passwordConfirmation,
-            ),
-            Center(
-              child: Text(
-                ref.watch(registerProvider).errorText,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.red,
+                controller: _passwordController,
+                inputType: TextFieldType.password,
+              ),
+              DefaultInputField(
+                controller: _confirmPasswordController,
+                inputType: TextFieldType.passwordConfirmation,
+              ),
+              Center(
+                child: Text(
+                  ref.watch(registerProvider).errorText,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Colors.red,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
-            const Spacer(),
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 4),
-              child: primaryButton(
-                onPressed: (){
-                  //ref.read(registerProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text, confirmPassword: _confirmPasswordController.text);
-                  //ref.read(registerProvider.notifier).validateData();
-                  ref.read(authProvider.notifier).logout();
-                },
-                context: context,
-                content: 'Register',
-              ),
-            ),
-            Center(
-              child: RichText(
-                text: TextSpan(
-                  text: "Already have an account? ",
-                  style: Theme.of(context).textTheme.bodySmall,
-                  children: [
-                    TextSpan(
-                      text: "Login",
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: colorTextGreen,
-                        fontWeight: FontWeight.bold
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = (){
-                          Navigator.pushNamed(context, RoutingConst.loginRoute);
-                        }
-                    )
-                  ],
+              const Spacer(),
+              Container(
+                margin: const EdgeInsets.only(top: 20, bottom: 4),
+                child: primaryButton(
+                  onPressed: (){
+                    ref.read(registerProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text, confirmPassword: _confirmPasswordController.text);
+                    ref.read(registerProvider.notifier).validateData();
+                    if(ref.watch(registerProvider).errorText == ""){
+                      ref.read(authProvider.notifier).register(_emailController.text, _passwordController.text);
+                    }
+                  },
+                  context: context,
+                  content: 'Register',
                 ),
               ),
-            )
-          ],
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    text: "Already have an account? ",
+                    style: Theme.of(context).textTheme.bodySmall,
+                    children: [
+                      TextSpan(
+                        text: "Login",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: colorTextGreen,
+                          fontWeight: FontWeight.bold
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = (){
+                            Navigator.pushNamed(context, RoutingConst.loginRoute);
+                          }
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
