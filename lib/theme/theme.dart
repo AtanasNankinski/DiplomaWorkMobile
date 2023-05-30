@@ -8,6 +8,7 @@ ThemeData mainTheme = ThemeData(
   primaryColor: colorPrimary,
   textTheme: textTheme,
   elevatedButtonTheme: elevatedButtonThemeData,
+  listTileTheme: listTileTheme,
 );
 
 TextTheme textTheme = TextTheme(
@@ -59,4 +60,8 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
         )
     ),
   ),
+);
+
+ListTileThemeData listTileTheme = ListTileThemeData(
+  iconColor: colorMenuIcons,
 );

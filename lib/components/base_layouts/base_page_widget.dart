@@ -6,6 +6,7 @@ import 'package:diploma_work_mobile/error/error.dart';
 import 'package:diploma_work_mobile/error/error_provider.dart';
 import 'package:diploma_work_mobile/error/error_dialog.dart';
 import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/components/navigation_layouts/drawer_meu.dart';
 
 
 class BasePageWidget extends ConsumerWidget {
@@ -29,16 +30,16 @@ class BasePageWidget extends ConsumerWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        drawer: DrawerMenu(),
         appBar: AppBar(
           backgroundColor: colorAppBarBG,
-          leading: IconButton(
-            onPressed: () {  },
-            icon: Icon(Icons.menu),
-          ),
           actions: [
             IconButton(
-              onPressed: (){},
+              onPressed: (){
+
+              },
               icon: Icon(Icons.notifications),
+              splashRadius: 20,
             )
           ],
           title: Center(

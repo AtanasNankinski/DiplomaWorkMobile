@@ -26,6 +26,10 @@ class User {
     );
   }
 
+  factory User.empty() {
+    return const User(id: null, name: "",email: "", userType: 0, accessToken: "");
+  }
+
   User update({
     int? id,
     String? name,
@@ -41,4 +45,29 @@ class User {
       accessToken: accessToken ?? this.accessToken,
     );
   }
+
+  @override
+  String toString() {
+    return "User(id: $id,\n name: $name,\n email: $email,\n userType: $userType,\n accessToken: $accessToken)";
+  }
+
+  @override
+  bool operator == (covariant User other){
+    return id == other.id &&
+        name == other.name &&
+        email == other.email &&
+        userType == other.userType &&
+        accessToken == other.accessToken;
+  }
+
+  @override
+  int get hashCode => Object.hashAll(
+    [
+      id,
+      name,
+      email,
+      userType,
+      accessToken,
+    ],
+  );
 }

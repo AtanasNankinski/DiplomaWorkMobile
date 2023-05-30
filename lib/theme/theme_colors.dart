@@ -16,3 +16,7 @@ const colorButtonError = Colors.red;
 
 //App Bar Theme Colors
 const colorAppBarBG = Colors.black;
+
+// Drawer Colors
+const colorDrawerBG = Color(0xFF494940);
+final colorMenuIcons = Colors.white.withOpacity(0.8);
