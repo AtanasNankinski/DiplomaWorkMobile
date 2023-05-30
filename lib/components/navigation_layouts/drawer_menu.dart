@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/util/colors.dart';
 import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/components/navigation_layouts/menu_body.dart';
+import 'package:diploma_work_mobile/components/navigation_layouts/menu_header.dart';
 
 class DrawerMenu extends ConsumerWidget {
   const DrawerMenu({Key? key}) : super(key: key);
+
+  final bool hasProfilePic = false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,31 +24,12 @@ class DrawerMenu extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildMenuHeader(_name, _email),
-            buildMenuBody(),
-          ]
+            const SizedBox(height: 30,),
+            buildMenuHeader(context, _name, _email, hasProfilePic),
+            buildMenuBody(context, _userType),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget buildMenuHeader(String name, String email) {
-    return Container(
-      child: Text("Header"),
-    );
-  }
-
-  Widget buildMenuBody() {
-    return Column(
-      children: [
-        ListTile(
-          leading: Icon(Icons.dashboard, color: Colors.white,),
-          title: Text("Dashboard"),
-          onTap: (){
-
-          },
-        )
-      ],
     );
   }
 }

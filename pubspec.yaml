@@ -57,7 +57,7 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  background_image: assets/SplashScreenBG.png
+  background_image: assets/splash_screen_background.png
   fullscreen: true
 
 # For information on the generic Dart part of this file, see the

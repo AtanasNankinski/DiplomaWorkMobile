@@ -20,3 +20,4 @@ const colorAppBarBG = Colors.black;
 // Drawer Colors
 const colorDrawerBG = Color(0xFF494940);
 final colorMenuIcons = Colors.white.withOpacity(0.8);
+final colorMenuSeparator = Colors.white.withOpacity(0.8);

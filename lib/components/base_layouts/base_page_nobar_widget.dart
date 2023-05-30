@@ -11,7 +11,7 @@ class BasePageNoBarWidget extends StatelessWidget {
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                  'assets/PagesBG.png'
+                  'assets/pages_background.png'
               ),
               fit: BoxFit.cover
           )

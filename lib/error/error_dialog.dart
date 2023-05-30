@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/util/colors.dart';
 
 class ErrorDialog extends ConsumerWidget {
   const ErrorDialog({Key? key, required this.title, required this.errorContent}) : super(key: key);
