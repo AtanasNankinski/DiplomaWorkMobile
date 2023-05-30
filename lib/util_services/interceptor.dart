@@ -11,7 +11,16 @@ class DioInterceptor extends Interceptor {
       options.headers['accept'] = 'application/json';
       options.headers['authorization'] = "Bearer ${user.accessToken}";
     }else {
-      handler.reject(DioError(requestOptions: options, error: "Unauthorized user"));
+      handler.reject(
+        DioError(
+          requestOptions: options,
+          error: "Unauthorized User",
+          response: Response(
+            statusCode: 401,
+            requestOptions: options,
+          ),
+        ),
+      );
     }
     super.onRequest(options, handler);
   }

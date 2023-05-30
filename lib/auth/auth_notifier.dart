@@ -23,17 +23,15 @@ class AuthNotifier extends AsyncNotifier<User> {
     }
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return await authService.logout();
     });
-    state.when(
-      data: (data){},
+    state.whenOrNull(
       error: (error, stackTrace){
         ref.read(errorProvider.notifier).createException(exception: error.toString(), errorTitle: "Logout Error");
       },
-      loading: (){},
     );
   }
 
@@ -59,12 +57,10 @@ class AuthNotifier extends AsyncNotifier<User> {
     state = await AsyncValue.guard(() async {
       return await authService.register(email, password);
     });
-    state.when(
-      data: (data) {},
+    state.whenOrNull(
       error: (error, stackTrace) {
         _checkError(error.toString());
       },
-      loading: (){},
     );
   }
 

@@ -15,18 +15,20 @@ class ControlWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool hasSeenOnboarding = ref.watch(onboardingProvider);
-    final bool isLoggedIn = ref.watch(authProvider).when(data: (data) {
-      if(data != User.empty()){
-        print(data);
-        print(User.empty());
-        return true;
-      }
-      return false;
-    }, error: (error, stackTrace) {
-      return false;
-    }, loading: () {
-      return false;
-    });
+    final bool isLoggedIn = ref.watch(authProvider).when(
+      data: (data) {
+        if(data != User.empty()){
+          return true;
+        }
+        return false;
+      },
+      error: (error, stackTrace) {
+        return false;
+      },
+      loading: () {
+        return false;
+      },
+    );
 
     return isLoggedIn
         ? const DashboardPage()

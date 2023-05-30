@@ -20,6 +20,10 @@ class RegisterPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final errorText = ref.watch(registerProvider);
+    final registerNotifier = ref.read(registerProvider.notifier);
+    final authNotifier = ref.read(authProvider.notifier);
+
     return BasePageNoBarWidget(
       child: PostBaseLayout(
         child: WillPopScope(
@@ -50,7 +54,7 @@ class RegisterPage extends ConsumerWidget {
               ),
               Center(
                 child: Text(
-                  ref.watch(registerProvider).errorText,
+                  errorText,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: Colors.red,
                   ),
@@ -62,10 +66,8 @@ class RegisterPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: 20, bottom: 4),
                 child: primaryButton(
                   onPressed: (){
-                    ref.read(registerProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text, confirmPassword: _confirmPasswordController.text);
-                    ref.read(registerProvider.notifier).validateData();
-                    if(ref.watch(registerProvider).errorText == ""){
-                      ref.read(authProvider.notifier).register(_emailController.text, _passwordController.text);
+                    if(registerNotifier.validateData(_emailController.text, _passwordController.text, _confirmPasswordController.text)){
+                      authNotifier.register(_emailController.text, _passwordController.text);
                     }
                   },
                   context: context,
