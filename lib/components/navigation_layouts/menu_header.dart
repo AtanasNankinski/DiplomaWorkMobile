@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:diploma_work_mobile/components/default_avatar.dart';
@@ -11,7 +12,7 @@ Widget buildMenuHeader(BuildContext context, String name, String email, bool has
           children: [
             IconButton(
               onPressed: (){
-
+                Navigator.pushNamed(context, RoutingConst.accountRoute);
               },
               icon: const Icon(
                 Icons.edit,

@@ -1,7 +1,7 @@
-import 'package:diploma_work_mobile/error/error_provider.dart';
+import 'package:diploma_work_mobile/misc/error/error_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 
 class OnboardingNotifier extends Notifier<bool> {
   @override

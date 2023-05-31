@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import 'package:diploma_work_mobile/auth/user_model.dart';
-import 'package:diploma_work_mobile/util/api_config.dart';
-import 'package:diploma_work_mobile/util_services/interceptor.dart';
+import 'package:diploma_work_mobile/misc/util/api_config.dart';
+import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
 
 class AuthService {
   Future<User> logout() async {

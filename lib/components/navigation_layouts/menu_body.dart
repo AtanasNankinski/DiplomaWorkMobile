@@ -1,6 +1,7 @@
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:flutter/material.dart';
 
-import 'package:diploma_work_mobile/util/colors.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 import 'package:diploma_work_mobile/components/separator.dart';
 
 Widget buildMenuBody(BuildContext context, int userType) {
@@ -15,7 +16,7 @@ Widget buildMenuBody(BuildContext context, int userType) {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         onTap: (){
-
+          Navigator.pushNamed(context, RoutingConst.dashboardRoute);
         },
       ),
       ListTile(
@@ -26,7 +27,7 @@ Widget buildMenuBody(BuildContext context, int userType) {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         onTap: (){
-
+          Navigator.pushNamed(context, RoutingConst.gamesRoute);
         },
       ),
       ListTile(
@@ -37,7 +38,7 @@ Widget buildMenuBody(BuildContext context, int userType) {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         onTap: (){
-
+          Navigator.pushNamed(context, RoutingConst.scoreRoute);
         },
       ),
       userType == 1
@@ -49,7 +50,7 @@ Widget buildMenuBody(BuildContext context, int userType) {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               onTap: (){
-
+                Navigator.pushNamed(context, RoutingConst.adminPanelRoute);
               },
             )
           : Container(),
@@ -62,7 +63,7 @@ Widget buildMenuBody(BuildContext context, int userType) {
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         onTap: (){
-
+          Navigator.pushNamed(context, RoutingConst.settingsRoute);
         },
       ),
       ListTile(

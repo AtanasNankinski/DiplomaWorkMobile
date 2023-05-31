@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:diploma_work_mobile/util/colors.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 ThemeData mainTheme = ThemeData(
   primaryColor: colorPrimary,

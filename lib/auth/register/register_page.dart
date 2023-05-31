@@ -7,8 +7,8 @@ import 'package:diploma_work_mobile/components/base_layouts/base_page_nobar_widg
 import 'package:diploma_work_mobile/components/base_layouts/post_base_layout.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
 import 'package:diploma_work_mobile/auth/auth_providers.dart';
-import 'package:diploma_work_mobile/navigation/routing_constants.dart';
-import 'package:diploma_work_mobile/util/colors.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 import 'package:diploma_work_mobile/components/text_inputs/default_input.dart';
 
 class RegisterPage extends ConsumerWidget {

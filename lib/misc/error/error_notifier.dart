@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/error/error.dart';
+import 'package:diploma_work_mobile/misc/error/error.dart';
 
 class ErrorNotifier extends Notifier<ErrorModel>{
   @override

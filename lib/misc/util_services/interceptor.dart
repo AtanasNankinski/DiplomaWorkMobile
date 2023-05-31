@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:diploma_work_mobile/util/api_config.dart';
+import 'package:diploma_work_mobile/misc/util/api_config.dart';
 
-import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
 
 class DioInterceptor extends Interceptor {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/styles/decorations.dart';
+import 'package:diploma_work_mobile/misc/styles/decorations.dart';
 
 class DefaultInputField extends ConsumerWidget {
   const DefaultInputField({Key? key, required this.controller, required this.inputType, this.hintText = ""}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:diploma_work_mobile/util/colors.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 Widget separator() {
   return Container(

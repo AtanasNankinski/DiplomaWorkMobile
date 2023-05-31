@@ -4,11 +4,11 @@ import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/theme/theme.dart';
-import 'package:diploma_work_mobile/navigation/routing.dart';
-import 'package:diploma_work_mobile/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/misc/theme/theme.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:diploma_work_mobile/control_widget/control_widget.dart';
-import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
