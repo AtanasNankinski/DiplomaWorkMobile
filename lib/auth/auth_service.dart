@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:diploma_work_mobile/util_services/api_errors.dart';
 import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -10,18 +9,19 @@ import 'package:diploma_work_mobile/util/api_config.dart';
 import 'package:diploma_work_mobile/util_services/interceptor.dart';
 
 class AuthService {
-  final Dio _dio = Dio();
-
-  AuthService(){
-    _dio.interceptors.add(DioInterceptor());
-  }
-
   Future<User> logout() async {
     try {
-      await _dio.post(ApiConfig.androidTestEndpoint + ApiConfig.logout);
-      await SharedPreferencesService().clearUser();
+      final respone = await DioInstance().dio.post(ApiConfig.logout);
+      if(respone.statusCode != null) {
+        if(respone.statusCode! >= 200 && respone.statusCode! < 300){
+          await SharedPreferencesService().clearUser();
+        }
+      }
       return SharedPreferencesService().getUser();
     } on DioError catch(e) {
+      if(e.type == DioErrorType.connectionTimeout) {
+        return SharedPreferencesService().getUser();
+      }
       if(e.response != null){
         if(e.response!.statusCode == 401) {
           SharedPreferencesService().clearUser();

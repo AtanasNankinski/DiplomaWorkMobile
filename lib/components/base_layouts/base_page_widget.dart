@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/error/error.dart';
 import 'package:diploma_work_mobile/error/error_provider.dart';
-import 'package:diploma_work_mobile/error/error_dialog.dart';
+import 'package:diploma_work_mobile/components/error_dialog.dart';
 import 'package:diploma_work_mobile/util/colors.dart';
 import 'package:diploma_work_mobile/components/navigation_layouts/drawer_menu.dart';
+import 'package:diploma_work_mobile/util_services/loading_provider.dart';
+import 'package:diploma_work_mobile/components/loading_widget.dart';
 
 
 class BasePageWidget extends ConsumerWidget {
@@ -62,6 +64,9 @@ class BasePageWidget extends ConsumerWidget {
                       ),
                       errorState.showError
                           ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
+                          : Container(),
+                      ref.watch(isLoadingProvider)
+                          ? loadingWidget()
                           : Container(),
                     ]
                   )

@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:diploma_work_mobile/auth/auth_providers.dart';
-import 'package:diploma_work_mobile/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/util_services/loading_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +8,8 @@ import 'package:diploma_work_mobile/auth/auth_service.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
 import 'package:diploma_work_mobile/error/error_provider.dart';
 import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/navigation/routing_constants.dart';
 
 class AuthNotifier extends AsyncNotifier<User> {
   final authService = AuthService();
@@ -26,12 +27,20 @@ class AuthNotifier extends AsyncNotifier<User> {
   Future<void> logout(BuildContext context) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      ref.read(isLoadingProvider.notifier).state = true;
       return await authService.logout();
     });
-    state.whenOrNull(
+    state.when(
+      data: (data) {
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
       error: (error, stackTrace){
+        ref.read(isLoadingProvider.notifier).state = false;
         ref.read(errorProvider.notifier).createException(exception: error.toString(), errorTitle: "Logout Error");
       },
+      loading: () {
+        ref.read(isLoadingProvider.notifier).state = true;
+      }
     );
   }
 
