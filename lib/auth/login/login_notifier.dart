@@ -1,37 +1,31 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/auth/login/login_model.dart';
-
-class LoginNotifier extends Notifier<LoginModel>{
+class LoginNotifier extends Notifier<String>{
   @override
-  LoginModel build() {
-    return LoginModel(email: "", password: "", errorText: "");
-  }
-
-  void updateData({
-    required String email,
-    required String password,
-  }){
-    state = state.update(email: email, password: password);
+  String build() {
+    return "";
   }
 
   void setErrorMessage({required String errorMessage}) {
-    state = state.update(errorText: errorMessage);
+    state = errorMessage;
   }
 
-  bool checkEmail(String email) {
-    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
-  }
-
-  void validateData() {
-    if(state.email != "" && state.password != ""){
-      if(checkEmail(state.email)){
+  bool validateData(String email, String password) {
+    if(email != "" && password!= ""){
+      if(_checkEmail(email)){
         setErrorMessage(errorMessage: "");
+        return true;
       }else {
         setErrorMessage(errorMessage: "Email is in wrong format");
+        return false;
       }
     }else {
       setErrorMessage(errorMessage: "There are empty fields");
+      return false;
     }
+  }
+
+  bool _checkEmail(String email) {
+    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
   }
 }

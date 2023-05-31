@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 ThemeData mainTheme = ThemeData(
   primaryColor: colorPrimary,
   textTheme: textTheme,
   elevatedButtonTheme: elevatedButtonThemeData,
+  listTileTheme: listTileTheme,
 );
 
 TextTheme textTheme = TextTheme(
@@ -59,4 +60,8 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
         )
     ),
   ),
+);
+
+ListTileThemeData listTileTheme = ListTileThemeData(
+  iconColor: colorMenuIcons,
 );

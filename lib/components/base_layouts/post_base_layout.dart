@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/error/error.dart';
-import 'package:diploma_work_mobile/error/error_provider.dart';
-import 'package:diploma_work_mobile/error/error_dialog.dart';
+import 'package:diploma_work_mobile/misc/error/error.dart';
+import 'package:diploma_work_mobile/misc/error/error_provider.dart';
+import 'package:diploma_work_mobile/components/error_dialog.dart';
+import 'package:diploma_work_mobile/components/loading_widget.dart';
+import 'package:diploma_work_mobile/misc/util_services/loading_provider.dart';
 
 class PostBaseLayout extends ConsumerWidget {
   final Widget child;
@@ -29,6 +31,9 @@ class PostBaseLayout extends ConsumerWidget {
                   ),
                   errorState.showError
                       ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
+                      : Container(),
+                  ref.watch(isLoadingProvider)
+                      ? loadingWidget()
                       : Container(),
                 ]
               ),

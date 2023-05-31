@@ -1,10 +1,14 @@
-import 'package:diploma_work_mobile/error/error_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/error/error.dart';
-import 'package:diploma_work_mobile/error/error_provider.dart';
+import 'package:diploma_work_mobile/misc/error/error.dart';
+import 'package:diploma_work_mobile/misc/error/error_provider.dart';
+import 'package:diploma_work_mobile/components/error_dialog.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
+import 'package:diploma_work_mobile/components/navigation_layouts/drawer_menu.dart';
+import 'package:diploma_work_mobile/misc/util_services/loading_provider.dart';
+import 'package:diploma_work_mobile/components/loading_widget.dart';
 
 
 class BasePageWidget extends ConsumerWidget {
@@ -21,14 +25,25 @@ class BasePageWidget extends ConsumerWidget {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-            'assets/PagesBG.png'
+            'assets/pages_background.png'
           ),
           fit: BoxFit.cover
         )
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        drawer: DrawerMenu(),
         appBar: AppBar(
+          backgroundColor: colorAppBarBG,
+          actions: [
+            IconButton(
+              onPressed: (){
+
+              },
+              icon: Icon(Icons.notifications),
+              splashRadius: 20,
+            )
+          ],
           title: Center(
             child: Text(
               title
@@ -49,6 +64,9 @@ class BasePageWidget extends ConsumerWidget {
                       ),
                       errorState.showError
                           ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
+                          : Container(),
+                      ref.watch(isLoadingProvider)
+                          ? loadingWidget()
                           : Container(),
                     ]
                   )

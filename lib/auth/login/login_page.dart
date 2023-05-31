@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:diploma_work_mobile/components/base_layouts/base_page_nobar_widget.dart';
 import 'package:diploma_work_mobile/components/base_layouts/post_base_layout.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
-import 'package:diploma_work_mobile/navigation/routing_constants.dart';
-import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 import 'package:diploma_work_mobile/components/text_inputs/default_input.dart';
 import 'package:diploma_work_mobile/auth/auth_providers.dart';
 
@@ -19,6 +19,10 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loginWatch = ref.watch(loginProvider);
+    final loginRead = ref.read(loginProvider.notifier);
+    final auth = ref.read(authProvider.notifier);
+
     return BasePageNoBarWidget(
       child: PostBaseLayout(
         child: WillPopScope(
@@ -45,7 +49,7 @@ class LoginPage extends ConsumerWidget {
               ),
               Center(
                 child: Text(
-                  ref.watch(loginProvider).errorText,
+                  loginWatch,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: Colors.red,
                   ),
@@ -56,12 +60,10 @@ class LoginPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: 20, bottom: 4),
                 child: primaryButton(
                   onPressed: (){
-                    ref.read(loginProvider.notifier).updateData(email: _emailController.text, password: _passwordController.text);
-                    ref.read(loginProvider.notifier).validateData();
-                    if(ref.watch(loginProvider).errorText == ""){
-                      ref.read(authProvider.notifier).login(_emailController.text, _passwordController.text);
-                      Navigator.pushNamed(context, RoutingConst.defaultRoute);
+                    if(loginRead.validateData(_emailController.text, _passwordController.text)){
+                      auth.login(_emailController.text, _passwordController.text, context);
                     }
+                    _passwordController.text = "";
                   },
                   context: context,
                   content: 'Login',

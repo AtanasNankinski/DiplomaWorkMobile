@@ -6,7 +6,7 @@ import 'package:diploma_work_mobile/onboarding/onboarding_view.dart';
 import 'package:diploma_work_mobile/components/base_layouts/base_page_nobar_widget.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
 import 'package:diploma_work_mobile/onboarding/onboarding_provider.dart';
-import 'package:diploma_work_mobile/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 
 class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);

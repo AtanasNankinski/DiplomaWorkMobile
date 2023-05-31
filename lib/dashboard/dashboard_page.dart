@@ -21,7 +21,7 @@ class DashboardPage extends ConsumerWidget {
             ),
             primaryButton(
               onPressed: (){
-                ref.read(authProvider.notifier).logout();
+                ref.read(authProvider.notifier).logout(context);
               },
               content: "Logout",
               context: context,

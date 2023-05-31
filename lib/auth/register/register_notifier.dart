@@ -1,46 +1,41 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/auth/register/register_model.dart';
-
-class RegisterNotifier extends Notifier<RegisterModel>{
+class RegisterNotifier extends Notifier<String>{
   @override
-  RegisterModel build() {
-    return RegisterModel(email: "", password: "", confirmPassword: "", errorText: "");
-  }
-
-  void updateData({
-    required String email,
-    required String password,
-    required String confirmPassword,
-  }){
-    state = state.update(email: email, password: password, confirmPassword: confirmPassword);
+  String build() {
+    return "";
   }
 
   void setErrorMessage({required String errorMessage}) {
-    state = state.update(errorText: errorMessage);
+    state = errorMessage;
   }
 
-  bool checkEmail(String email) {
-    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
-  }
-
-  void validateData() {
-    if(state.email != "" && state.password != "" && state.confirmPassword != ""){
-      if(checkEmail(state.email)){
-        if(state.password.length >= 8){
-          if(state.password == state.confirmPassword){
+  bool validateData(String email, String password, String confirmPass) {
+    if(email != "" && password != "" && confirmPass != ""){
+      if(_checkEmail(email)){
+        if(password.length >= 8){
+          if(password == confirmPass){
             setErrorMessage(errorMessage: "");
+            return true;
           }else {
             setErrorMessage(errorMessage: "Password and Confirm Password don't match");
+            return false;
           }
         }else {
           setErrorMessage(errorMessage: "Password should be at least 8 characters");
+          return false;
         }
       }else {
         setErrorMessage(errorMessage: "Email is in wrong format");
+        return false;
       }
     }else {
       setErrorMessage(errorMessage: "There are empty fields");
+      return false;
     }
+  }
+
+  bool _checkEmail(String email) {
+    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
   }
 }

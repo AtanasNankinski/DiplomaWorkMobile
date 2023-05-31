@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/theme/theme_colors.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 ElevatedButton errorButton({required BuildContext context, required VoidCallback onPressed}) {
   return ElevatedButton(

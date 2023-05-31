@@ -1,12 +1,15 @@
 import 'dart:async';
 
-import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/misc/util_services/loading_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/auth_service.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
-import 'package:diploma_work_mobile/error/error_provider.dart';
-import 'package:diploma_work_mobile/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/misc/error/error_provider.dart';
+import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 
 class AuthNotifier extends AsyncNotifier<User> {
   final authService = AuthService();
@@ -17,35 +20,44 @@ class AuthNotifier extends AsyncNotifier<User> {
       return SharedPreferencesService().getUser();
     } catch(e) {
       ref.read(errorProvider.notifier).createException(exception: e.toString(), errorTitle: "Server Error");
-      return User(id: null, name: "",email: "", userType: 0, accessToken: "");
+      return User.empty();
     }
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      ref.read(isLoadingProvider.notifier).state = true;
       return await authService.logout();
     });
     state.when(
-      data: (data){},
+      data: (data) {
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
       error: (error, stackTrace){
+        ref.read(isLoadingProvider.notifier).state = false;
         ref.read(errorProvider.notifier).createException(exception: error.toString(), errorTitle: "Logout Error");
       },
-      loading: (){},
+      loading: () {
+        ref.read(isLoadingProvider.notifier).state = true;
+      }
     );
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String email, String password, BuildContext context) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return await authService.login(email, password);
     });
-    state.when(
-      data: (data){},
-      error: (error, stackTrace){
-        _checkError(error.toString());
+    state.whenOrNull(
+      data: (data) {
+        if(data != User.empty()){
+          Navigator.pushNamed(context, RoutingConst.defaultRoute);
+        }
       },
-      loading: (){},
+      error: (error, stackTrace) {
+        _checkError(error.toString());
+      }
     );
   }
 
@@ -54,20 +66,20 @@ class AuthNotifier extends AsyncNotifier<User> {
     state = await AsyncValue.guard(() async {
       return await authService.register(email, password);
     });
-    state.when(
-      data: (data) {},
+    state.whenOrNull(
       error: (error, stackTrace) {
         _checkError(error.toString());
       },
-      loading: (){},
     );
   }
 
   void _checkError(String error) async {
     if(error == '422'){
       ref.read(registerProvider.notifier).setErrorMessage(errorMessage: "Email is already taken or credentials are incorrect.");
+      ref.read(loginProvider.notifier).setErrorMessage(errorMessage: "Email is already taken or credentials are incorrect.");
     }else if(error == '401'){
       ref.read(registerProvider.notifier).setErrorMessage(errorMessage: "Wrong credentials.");
+      ref.read(loginProvider.notifier).setErrorMessage(errorMessage: "Wrong credentials.");
     }else {
       ref.read(errorProvider.notifier).createException(exception: error, errorTitle: "Unknown Error");
     }
