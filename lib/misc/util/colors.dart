@@ -13,6 +13,7 @@ const colorTextDark = Colors.black;
 const colorButtonMain = Color(0xFF0BDC84);
 const colorButtonText = Colors.black;
 const colorButtonError = Colors.red;
+const colorIconButtonGrey = Color(0xFF828181);
 
 //App Bar Theme Colors
 const colorAppBarBG = Colors.black;
@@ -21,3 +22,11 @@ const colorAppBarBG = Colors.black;
 const colorDrawerBG = Color(0xFF494940);
 final colorMenuIcons = Colors.white.withOpacity(0.8);
 final colorMenuSeparator = Colors.white.withOpacity(0.8);
+
+//Custom components colors
+const colorAddReplicaBoxBorder = Color(0xFF828181);
+const colorAddReplicaBoxBG = Color(0xFFBFBFBF);
+const colorReplicaBoxBG = Color(0xFF9C9177);
+const colorReplicaBoxGreen = Color(0xFF377309);
+const colorReplicaBoxYellow = Color(0xFF967817);
+const colorReplicaBoxRed = Color(0xFF9A3E3F);

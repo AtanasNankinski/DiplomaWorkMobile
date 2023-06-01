@@ -18,6 +18,7 @@ class BasePageNoBarWidget extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: child,
         ),

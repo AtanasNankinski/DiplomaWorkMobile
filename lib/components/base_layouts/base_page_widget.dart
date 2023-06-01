@@ -32,6 +32,7 @@ class BasePageWidget extends ConsumerWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
         drawer: DrawerMenu(),
         appBar: AppBar(
           backgroundColor: colorAppBarBG,
@@ -53,23 +54,25 @@ class BasePageWidget extends ConsumerWidget {
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              return ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: child,
-                      ),
-                      errorState.showError
-                          ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
-                          : Container(),
-                      ref.watch(isLoadingProvider)
-                          ? loadingWidget()
-                          : Container(),
-                    ]
-                  )
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: child,
+                        ),
+                        errorState.showError
+                            ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
+                            : Container(),
+                        ref.watch(isLoadingProvider)
+                            ? loadingWidget()
+                            : Container(),
+                      ]
+                    )
+                  ),
                 ),
               );
             },
