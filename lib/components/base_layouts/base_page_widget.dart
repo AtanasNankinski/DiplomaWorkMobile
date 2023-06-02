@@ -14,8 +14,9 @@ import 'package:diploma_work_mobile/components/loading_widget.dart';
 class BasePageWidget extends ConsumerWidget {
   final Widget child;
   final String title;
+  final bool hasDrawer;
 
-  const BasePageWidget({required this.child, required this.title, Key? key}) : super(key: key);
+  const BasePageWidget({required this.child, required this.title, required this.hasDrawer, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,15 +34,24 @@ class BasePageWidget extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
-        drawer: DrawerMenu(),
+        drawer: hasDrawer ? DrawerMenu() : null,
         appBar: AppBar(
           backgroundColor: colorAppBarBG,
+          leading: hasDrawer
+              ? null
+              : IconButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                  splashRadius: 20,
+                ),
           actions: [
             IconButton(
               onPressed: (){
 
               },
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               splashRadius: 20,
             )
           ],

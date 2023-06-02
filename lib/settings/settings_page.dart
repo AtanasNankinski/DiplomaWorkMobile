@@ -7,6 +7,12 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageWidget(child: Center(child: Text("Settings")), title: "Settings");
+    return BasePageWidget(
+      hasDrawer: true,
+      title: "Settings",
+      child: Center(
+        child: Text("Settings"),
+      ),
+    );
   }
 }

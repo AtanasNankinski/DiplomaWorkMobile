@@ -14,9 +14,9 @@ class DrawerMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String _name = ref.watch(authProvider).value!.name;
-    final String _email = ref.watch(authProvider).value!.email;
-    final int _userType = ref.watch(authProvider).value!.userType;
+    final String _name = ref.watch(userProvider).value!.name;
+    final String _email = ref.watch(userProvider).value!.email;
+    final int _userType = ref.watch(userProvider).value!.userType;
 
     return Drawer(
       backgroundColor: colorDrawerBG,

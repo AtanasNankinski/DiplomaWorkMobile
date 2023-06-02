@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:diploma_work_mobile/misc/util_services/loading_provider.dart';
+import 'package:diploma_work_mobile/account/account_service.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/auth_service.dart';
@@ -10,9 +11,11 @@ import 'package:diploma_work_mobile/misc/error/error_provider.dart';
 import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 import 'package:diploma_work_mobile/auth/auth_providers.dart';
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
+import 'package:diploma_work_mobile/misc/util_services/loading_provider.dart';
 
-class AuthNotifier extends AsyncNotifier<User> {
+class UserNotifier extends AsyncNotifier<User> {
   final authService = AuthService();
+  final accountService = AccountService();
 
   @override
   FutureOr<User> build() async {
@@ -65,6 +68,18 @@ class AuthNotifier extends AsyncNotifier<User> {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return await authService.register(email, password);
+    });
+    state.whenOrNull(
+      error: (error, stackTrace) {
+        _checkError(error.toString());
+      },
+    );
+  }
+
+  Future<void> updateUsername(String name) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await accountService.changeUsername(name, state.value!.id!);
     });
     state.whenOrNull(
       error: (error, stackTrace) {

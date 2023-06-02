@@ -7,6 +7,12 @@ class ScorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageWidget(child: Center(child: Text("Score")), title: "Score");
+    return BasePageWidget(
+      hasDrawer: true,
+      title: "Score",
+      child: Center(
+        child: Text("Score"),
+      ),
+    );
   }
 }

@@ -6,4 +6,5 @@ class ApiConfig {
   static String login = "api/login";
   static String register = "api/register";
   static String logout = "api/logout";
+  static String updateUsername = "api/update_name";
 }

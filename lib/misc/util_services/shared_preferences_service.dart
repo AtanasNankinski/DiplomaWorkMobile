@@ -59,6 +59,10 @@ class SharedPreferencesService {
     return User(id: null, name: "", email: "", userType: 0, accessToken: "");
   }
 
+  Future<void> updateUsername(String name) async {
+    await sharedPreferences.setString(SharedPreferencesKeys.authName.toString(), name);
+  }
+
   _checkUserData(int? id, String? name, String? email, int? userType, String? token){
     if(id != null && name != null && email != null && userType != null && token != null){
       return true;

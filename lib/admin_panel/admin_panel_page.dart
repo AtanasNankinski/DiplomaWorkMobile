@@ -7,6 +7,12 @@ class AdminPanelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageWidget(child: Center(child: Text("Admin Panel")), title: "Admin Panel");
+    return BasePageWidget(
+      hasDrawer: false,
+      title: "Admin Panel",
+      child: Center(
+          child: Text("Admin Panel")
+      ),
+    );
   }
 }

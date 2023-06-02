@@ -1,3 +1,6 @@
+import 'package:diploma_work_mobile/account/account_providers.dart';
+import 'package:diploma_work_mobile/components/image_pick_modal.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,13 +29,18 @@ class AccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String username = "";
+    final errorText = ref.watch(accountPageProvider);
+    final accountProviderRead = ref.read(accountPageProvider.notifier);
+    final userProviderRead = ref.read(userProvider.notifier);
 
-    ref.watch(authProvider).whenData((value) => {
+    String username = "Placeholder";
+    ref.watch(userProvider).whenData((value) => {
       username = value.name
     });
 
     return BasePageWidget(
+      hasDrawer: true,
+      title: "Account",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -49,7 +57,16 @@ class AccountPage extends ConsumerWidget {
               context: context,
               buttonText: "Change Avatar",
               onPressed: (){
+                showModalBottomSheet(context: context, builder: (context) {
+                  return imagePickModal(
+                    onPressedImage: () {
 
+                    },
+                    onPressedGallery: () {
+
+                    },
+                  );
+                });
               },
             ),
           ),
@@ -59,11 +76,25 @@ class AccountPage extends ConsumerWidget {
               margin: const EdgeInsets.only(bottom: 12),
               child: DefaultInputField(controller: lastNameController, inputType: TextFieldType.text, hintText: "Last Name",)
           ),
+          Center(
+            child: Text(
+              errorText,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Colors.red,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
           primaryOutlinedButton(
             context: context,
             buttonText: "Change Name",
             onPressed: (){
-
+              if(accountProviderRead.validateNameFields(firstNameController.text, lastNameController.text)){
+                String fullName = "${firstNameController.text} ${lastNameController.text}";
+                userProviderRead.updateUsername(fullName);
+                firstNameController.text = "";
+                lastNameController.text = "";
+              }
             },
           ),
           sectionSeparator("Replicas", context, false),
@@ -80,14 +111,13 @@ class AccountPage extends ConsumerWidget {
               addReplicaContainer(
                 context: context,
                 onPressed: (){
-
+                  Navigator.pushNamed(context, RoutingConst.addReplicaRoute);
                 },
               ),
             ],
           ),
         ]
       ),
-      title: "Account",
     );
   }
 }
