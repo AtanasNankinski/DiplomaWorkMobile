@@ -10,7 +10,9 @@ class DioInterceptor extends Interceptor {
     final user = SharedPreferencesService().getUser();
     if(user.accessToken.isNotEmpty && user != User(id: null, name: "", email: "", userType: 0, accessToken: "")){
       options.headers['accept'] = 'application/json';
+      options.headers['content-type'] = 'multipart/form-data';
       options.headers['authorization'] = "Bearer ${user.accessToken}";
+      super.onRequest(options, handler);
     }else {
       handler.reject(
         DioError(
@@ -23,7 +25,6 @@ class DioInterceptor extends Interceptor {
         ),
       );
     }
-    super.onRequest(options, handler);
   }
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {

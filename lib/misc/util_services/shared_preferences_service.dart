@@ -63,6 +63,18 @@ class SharedPreferencesService {
     await sharedPreferences.setString(SharedPreferencesKeys.authName.toString(), name);
   }
 
+  Future<void> setAvatarColor(String color) async {
+    await sharedPreferences.setString(SharedPreferencesKeys.profileColor.toString(), color);
+  }
+
+  String getAvatarColor() {
+    final data = sharedPreferences.getString(SharedPreferencesKeys.profileColor.toString());
+    if(data != null) {
+      return data;
+    }
+    return "";
+  }
+
   _checkUserData(int? id, String? name, String? email, int? userType, String? token){
     if(id != null && name != null && email != null && userType != null && token != null){
       return true;
@@ -78,4 +90,5 @@ enum SharedPreferencesKeys {
   authEmail,
   authUserType,
   authToken,
+  profileColor,
 }

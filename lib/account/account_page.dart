@@ -1,4 +1,6 @@
 import 'package:diploma_work_mobile/account/account_providers.dart';
+import 'package:diploma_work_mobile/auth/user_model.dart';
+import 'package:diploma_work_mobile/components/avatar_with_image.dart';
 import 'package:diploma_work_mobile/components/image_pick_modal.dart';
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class AccountPage extends ConsumerWidget {
   final lastNameController = TextEditingController();
   final List<Replica> mockedReplicas = [
     const Replica(replicaName: "Shcmaizer", replicaType: ReplicaType.smg, replicaPower: 1.3),
-    const Replica(replicaName: "Bareta", replicaType: ReplicaType.pistol, replicaPower: 1.7),
+    const Replica(replicaName: "Baretta", replicaType: ReplicaType.pistol, replicaPower: 1.7),
     const Replica(replicaName: "Sniper", replicaType: ReplicaType.sniper, replicaPower: 2.3),
     const Replica(replicaName: "Rifle", replicaType: ReplicaType.assaultRifle, replicaPower: 1.7),
   ];
@@ -32,10 +34,25 @@ class AccountPage extends ConsumerWidget {
     final errorText = ref.watch(accountPageProvider);
     final accountProviderRead = ref.read(accountPageProvider.notifier);
     final userProviderRead = ref.read(userProvider.notifier);
+    final userProviderWatch = ref.watch(userProvider);
+    final profileProviderRead = ref.read(profilePicProvider.notifier);
+    final profileProviderWatch =  ref.watch(profilePicProvider);
 
-    String username = "Placeholder";
-    ref.watch(userProvider).whenData((value) => {
-      username = value.name
+    User user = User.empty();
+    String color = "";
+    bool hasPicture = false;
+    String pictureUrl = "";
+    userProviderWatch.whenData((value) {
+      user = value;
+    });
+    profileProviderWatch.whenData((value) {
+      if(value.image != "") {
+        pictureUrl = value.image;
+        hasPicture = true;
+      }else {
+        hasPicture = false;
+        color = value.color;
+      }
     });
 
     return BasePageWidget(
@@ -48,7 +65,18 @@ class AccountPage extends ConsumerWidget {
           Center(
             child: Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: defaultAvatar(context: context, size: AvatarSizes.big, username: username, background: Colors.yellow),
+              child: hasPicture
+                  ? avatarWithImage(
+                      url: pictureUrl,
+                      context: context,
+                      size: AvatarSizes.big,
+                    )
+                  : defaultAvatar(
+                      context: context,
+                      size: AvatarSizes.big,
+                      username: user.name,
+                      background: color,
+                    ),
             ),
           ),
           Padding(
@@ -60,7 +88,9 @@ class AccountPage extends ConsumerWidget {
                 showModalBottomSheet(context: context, builder: (context) {
                   return imagePickModal(
                     onPressedImage: () {
-
+                      if(user.id != null) {
+                        profileProviderRead.changeAvatarFromGallery(user.id!, context);
+                      }
                     },
                     onPressedGallery: () {
 

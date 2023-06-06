@@ -72,7 +72,7 @@ class AuthService {
       if(response.statusCode >= 200 && response.statusCode < 300){
         final user = jsonDecode(response.body);
         final convUser = User.fromJson(user);
-        SharedPreferencesService().setUser(convUser.id!, convUser.name, convUser.email, convUser.userType, convUser.accessToken);
+        await SharedPreferencesService().setUser(convUser.id!, convUser.name, convUser.email, convUser.userType, convUser.accessToken);
         return convUser;
       }else if(response.statusCode == 422){
         throw "422";
