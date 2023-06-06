@@ -46,6 +46,18 @@ class User {
     );
   }
 
+  User updateWithMap({
+    required Map<String, dynamic> map,
+  }){
+    return User(
+      id: map['id'] as int,
+      name: map['name'] as String,
+      email: map['email'] as String,
+      userType: map['user_type'] as int,
+      accessToken: this.accessToken,
+    );
+  }
+
   @override
   String toString() {
     return "User(id: $id,\n name: $name,\n email: $email,\n userType: $userType,\n accessToken: $accessToken)";

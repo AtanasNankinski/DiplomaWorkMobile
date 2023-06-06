@@ -16,7 +16,7 @@ class ControlWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool hasSeenOnboarding = ref.watch(onboardingProvider);
-    final bool isLoggedIn = ref.watch(authProvider).when(
+    final bool isLoggedIn = ref.watch(userProvider).when(
       data: (data) {
         if(data != User.empty()){
           return true;

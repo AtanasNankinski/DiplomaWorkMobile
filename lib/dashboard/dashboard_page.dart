@@ -12,6 +12,8 @@ class DashboardPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BasePageWidget(
+      hasDrawer: true,
+      title: "Dashboard",
       child: WillPopScope(
         onWillPop: () async => false,
         child: Column(
@@ -21,7 +23,7 @@ class DashboardPage extends ConsumerWidget {
             ),
             primaryButton(
               onPressed: (){
-                ref.read(authProvider.notifier).logout(context);
+                ref.read(userProvider.notifier).logout(context);
               },
               content: "Logout",
               context: context,
@@ -29,7 +31,6 @@ class DashboardPage extends ConsumerWidget {
           ]
         ),
       ),
-      title: "Dashboard",
     );
   }
 }

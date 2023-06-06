@@ -22,7 +22,7 @@ class RegisterPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final errorText = ref.watch(registerProvider);
     final registerNotifier = ref.read(registerProvider.notifier);
-    final authNotifier = ref.read(authProvider.notifier);
+    final authNotifier = ref.read(userProvider.notifier);
 
     return BasePageNoBarWidget(
       child: PostBaseLayout(

@@ -18,4 +18,6 @@ class RoutingConst {
   static const String adminPanelRoute = "admin_panel";
   // Route to the settings screen
   static const String settingsRoute = "settings";
+  // Route to the add replica page
+  static const String addReplicaRoute = "add_replica";
 }

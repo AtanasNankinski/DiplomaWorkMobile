@@ -1,4 +1,3 @@
-import 'package:diploma_work_mobile/account/account_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:diploma_work_mobile/control_widget/control_widget.dart';
@@ -9,9 +8,10 @@ import 'package:diploma_work_mobile/admin_panel/admin_panel_page.dart';
 import 'package:diploma_work_mobile/games/games_page.dart';
 import 'package:diploma_work_mobile/score/score_page.dart';
 import 'package:diploma_work_mobile/settings/settings_page.dart';
+import 'package:diploma_work_mobile/account/account_page.dart';
+import 'package:diploma_work_mobile/account/add_replica_page.dart';
 
 class Routing {
-  /// Static method used for pushing the routes that are being called from the ui.
   static Route<dynamic> generateRoute(RouteSettings settings){
     switch(settings.name){
       case RoutingConst.defaultRoute:
@@ -52,6 +52,11 @@ class Routing {
       case RoutingConst.settingsRoute:
         return MaterialPageRoute(
           builder: (context) => SettingsPage(),
+          settings: settings,
+        );
+      case RoutingConst.addReplicaRoute:
+        return MaterialPageRoute(
+          builder: (context) => AddReplicaPage(),
           settings: settings,
         );
       default:

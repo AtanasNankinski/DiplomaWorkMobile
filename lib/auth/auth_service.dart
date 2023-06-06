@@ -11,9 +11,9 @@ import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
 class AuthService {
   Future<User> logout() async {
     try {
-      final respone = await DioInstance().dio.post(ApiConfig.logout);
-      if(respone.statusCode != null) {
-        if(respone.statusCode! >= 200 && respone.statusCode! < 300){
+      final response = await DioInstance().dio.post(ApiConfig.logout);
+      if(response.statusCode != null) {
+        if(response.statusCode! >= 200 && response.statusCode! < 300){
           await SharedPreferencesService().clearUser();
         }
       }
@@ -72,7 +72,7 @@ class AuthService {
       if(response.statusCode >= 200 && response.statusCode < 300){
         final user = jsonDecode(response.body);
         final convUser = User.fromJson(user);
-        SharedPreferencesService().setUser(convUser.id!, convUser.name, convUser.email, convUser.userType, convUser.accessToken);
+        await SharedPreferencesService().setUser(convUser.id!, convUser.name, convUser.email, convUser.userType, convUser.accessToken);
         return convUser;
       }else if(response.statusCode == 422){
         throw "422";

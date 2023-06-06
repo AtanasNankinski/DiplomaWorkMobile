@@ -9,6 +9,7 @@ ThemeData mainTheme = ThemeData(
   textTheme: textTheme,
   elevatedButtonTheme: elevatedButtonThemeData,
   listTileTheme: listTileTheme,
+  outlinedButtonTheme: outlinedButtonThemeData,
 );
 
 TextTheme textTheme = TextTheme(
@@ -52,6 +53,26 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
         borderRadius: BorderRadius.all(
             Radius.circular(30)
         )
+    ),
+    textStyle: GoogleFonts.inter(
+        textStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        )
+    ),
+  ),
+);
+
+OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
+  style: OutlinedButton.styleFrom(
+    minimumSize: const Size(100, 40),
+    elevation: 0,
+    side: const BorderSide(
+      color: colorButtonMain,
+      width: 2,
+    ),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0)
     ),
     textStyle: GoogleFonts.inter(
         textStyle: const TextStyle(

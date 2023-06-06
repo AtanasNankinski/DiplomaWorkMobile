@@ -21,7 +21,7 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loginWatch = ref.watch(loginProvider);
     final loginRead = ref.read(loginProvider.notifier);
-    final auth = ref.read(authProvider.notifier);
+    final auth = ref.read(userProvider.notifier);
 
     return BasePageNoBarWidget(
       child: PostBaseLayout(

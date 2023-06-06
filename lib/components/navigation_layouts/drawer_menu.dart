@@ -10,13 +10,9 @@ import 'package:diploma_work_mobile/components/navigation_layouts/menu_header.da
 class DrawerMenu extends ConsumerWidget {
   const DrawerMenu({Key? key}) : super(key: key);
 
-  final bool hasProfilePic = false;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String _name = ref.watch(authProvider).value!.name;
-    final String _email = ref.watch(authProvider).value!.email;
-    final int _userType = ref.watch(authProvider).value!.userType;
+    final int _userType = ref.watch(userProvider).value!.userType;
 
     return Drawer(
       backgroundColor: colorDrawerBG,
@@ -25,7 +21,7 @@ class DrawerMenu extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 30,),
-            buildMenuHeader(context, _name, _email, hasProfilePic),
+            const BuildMenuHeader(),
             buildMenuBody(context, _userType),
           ],
         ),

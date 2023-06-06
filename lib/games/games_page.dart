@@ -7,6 +7,12 @@ class GamesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageWidget(child: Center(child: Text("Games")), title: "Games");
+    return BasePageWidget(
+      hasDrawer: true,
+      title: "Games",
+      child: Center(
+        child: Text("Games"),
+      ),
+    );
   }
 }
