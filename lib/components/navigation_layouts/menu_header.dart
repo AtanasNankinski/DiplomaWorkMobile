@@ -23,7 +23,9 @@ class BuildMenuHeader extends ConsumerWidget {
     ref.watch(profilePicProvider).whenData((value) {
       if(value.image != "") {
         pictureUrl = value.image;
+        color = "";
       }else {
+        pictureUrl = "";
         color = value.color;
       }
     });

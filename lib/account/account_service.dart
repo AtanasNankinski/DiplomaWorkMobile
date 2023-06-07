@@ -27,7 +27,7 @@ class AccountService {
           return user;
         }
       }
-      throw "Error cccured while getting the data!";
+      throw "Error occurred while getting the data!";
     } on DioError {
       throw "Server Error";
     } catch(e) {
