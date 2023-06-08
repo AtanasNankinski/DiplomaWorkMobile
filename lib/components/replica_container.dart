@@ -1,15 +1,18 @@
-import 'package:diploma_work_mobile/misc/util/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 class ReplicaContainer extends StatelessWidget {
   const ReplicaContainer({Key? key, required this.replicaName, required this.replicaType, required this.replicaPower}) : super(key: key);
 
   final String replicaName;
-  final ReplicaType replicaType;
+  final String replicaType;
   final double replicaPower;
 
   @override
   Widget build(BuildContext context) {
+    final ReplicaType convertedType = _convertReplicaType(replicaType);
+
     return Container(
       width: 140,
       height: 100,
@@ -17,7 +20,7 @@ class ReplicaContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorReplicaBoxBG,
         border: Border.all(
-            color: determineBorderColor(replicaPower),
+            color: _determineBorderColor(replicaPower),
             width: 2
         ),
         borderRadius: const BorderRadius.all(
@@ -33,7 +36,7 @@ class ReplicaContainer extends StatelessWidget {
             children: [
               Flexible(
                 child: Container(
-                  margin: EdgeInsets.only(left: 12),
+                  margin: const EdgeInsets.only(left: 12),
                   child: Text(
                     replicaName,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -50,7 +53,7 @@ class ReplicaContainer extends StatelessWidget {
                   onPressed: (){},
                   icon: const Icon(Icons.more_vert),
                   splashRadius: 1,
-                  constraints: BoxConstraints(),
+                  constraints: const BoxConstraints(),
                   padding: EdgeInsets.zero,
                   alignment: Alignment.centerRight,
                 ),
@@ -65,7 +68,7 @@ class ReplicaContainer extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
-                        determineIcon(replicaType),
+                        _determineIcon(convertedType),
                       ),
                       fit: BoxFit.fill
                   )
@@ -88,7 +91,7 @@ class ReplicaContainer extends StatelessWidget {
     );
   }
 
-  Color determineBorderColor(double power){
+  Color _determineBorderColor(double power){
     if(power <= 1.3) {
       return colorReplicaBoxGreen;
     }else if(power > 1.3 && power <= 1.7) {
@@ -98,7 +101,7 @@ class ReplicaContainer extends StatelessWidget {
     }
   }
 
-  String determineIcon(ReplicaType replicaType){
+  String _determineIcon(ReplicaType replicaType){
     switch(replicaType){
       case ReplicaType.pistol:
         return 'assets/icon_pistol.png';
@@ -108,6 +111,21 @@ class ReplicaContainer extends StatelessWidget {
         return 'assets/icon_assault_rifle.png';
       case ReplicaType.sniper:
         return 'assets/icon_sniper_trimmed.png';
+    }
+  }
+
+  ReplicaType _convertReplicaType(String type){
+    switch(type) {
+      case "pistol":
+        return ReplicaType.pistol;
+      case "smg":
+        return ReplicaType.smg;
+      case "assault_rifle":
+        return ReplicaType.assaultRifle;
+      case "sniper":
+        return ReplicaType.sniper;
+      default:
+        return ReplicaType.assaultRifle;
     }
   }
 }

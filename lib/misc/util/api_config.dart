@@ -10,6 +10,7 @@ class ApiConfig {
   static String initialAccountPic = "api/inital_account_picture";
   static String uploadProfilePic = "api/upload_picture";
   static String getProfilePic = "api/get_profile_pic";
+  static String getReplicas = "api/get_replicas";
 
   //Test or not currently used routes
   static String testProfilePic = "api/test_file";

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:diploma_work_mobile/components/replica_container.dart';
-
 @immutable
 class Replica {
   final String replicaName;
-  final ReplicaType replicaType;
+  final String replicaType;
   final double replicaPower;
 
   const Replica({
@@ -13,4 +11,20 @@ class Replica {
     required this.replicaType,
     required this.replicaPower,
   });
+
+  factory Replica.fromJson(Map<String, dynamic> map) {
+    return Replica(
+      replicaName: map['replica_name'] as String,
+      replicaType: map['replica_type'] as String,
+      replicaPower: map['replica_power'] as double,
+    );
+  }
+
+  factory Replica.empty() {
+    return const Replica(
+      replicaName: "",
+      replicaType: "",
+      replicaPower: 0,
+    );
+  }
 }

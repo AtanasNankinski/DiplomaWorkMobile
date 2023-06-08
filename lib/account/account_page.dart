@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,10 +24,10 @@ class AccountPage extends ConsumerWidget {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final List<Replica> mockedReplicas = [
-    const Replica(replicaName: "Shcmaizer", replicaType: ReplicaType.smg, replicaPower: 1.3),
-    const Replica(replicaName: "Baretta", replicaType: ReplicaType.pistol, replicaPower: 1.7),
-    const Replica(replicaName: "Sniper", replicaType: ReplicaType.sniper, replicaPower: 2.3),
-    const Replica(replicaName: "Rifle", replicaType: ReplicaType.assaultRifle, replicaPower: 1.7),
+    const Replica(replicaName: "Shcmaizer", replicaType: "smg", replicaPower: 1.3),
+    const Replica(replicaName: "Baretta", replicaType: "pistol", replicaPower: 1.7),
+    const Replica(replicaName: "Sniper", replicaType: "sniper", replicaPower: 2.3),
+    const Replica(replicaName: "Rifle", replicaType: "assault_rifle", replicaPower: 1.7),
   ];
 
   @override
@@ -37,8 +38,10 @@ class AccountPage extends ConsumerWidget {
     final userProviderWatch = ref.watch(userProvider);
     final profileProviderRead = ref.read(profilePicProvider.notifier);
     final profileProviderWatch =  ref.watch(profilePicProvider);
+    final replicaProviderWatch = ref.watch(replicaProvider);
 
     User user = User.empty();
+    List<Replica> replicas = [];
     String color = "";
     String pictureUrl = "";
     userProviderWatch.whenData((value) {
@@ -52,6 +55,10 @@ class AccountPage extends ConsumerWidget {
         pictureUrl = "";
         color = value.color;
       }
+    });
+
+    replicaProviderWatch.whenData((value) {
+      replicas = value;
     });
 
     return BasePageWidget(
@@ -133,7 +140,7 @@ class AccountPage extends ConsumerWidget {
             spacing: 20,
             runSpacing: 20,
             children: [
-              for(var replica in mockedReplicas)
+              for(var replica in replicas)
                 ReplicaContainer(
                   replicaName: replica.replicaName,
                   replicaType: replica.replicaType,
