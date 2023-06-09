@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:diploma_work_mobile/add_replica/replica_model.dart';
+import 'package:diploma_work_mobile/misc/error/error_util.dart';
 import 'package:diploma_work_mobile/misc/util/api_config.dart';
 import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
 
@@ -26,8 +27,9 @@ class ReplicaService {
         }
       }
       throw "Server Response Error";
-    } on DioError {
-      throw "Server Error";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
     } catch(e) {
       throw "Unknown Error";
     }
@@ -46,7 +48,10 @@ class ReplicaService {
       if(request.statusCode != null) {
         if(request.statusCode! >= 200 && request.statusCode! < 300) {
           final response = request.data;
-          final replica = Replica.fromJson(response);
+          String name = response['replica_name'];
+          String type = response['replica_type'];
+          double power = double.parse(response['replica_power']);
+          final replica = Replica(replicaName: name, replicaType: type, replicaPower: power);
           if(replica != Replica.empty()) {
             return replica;
           }
@@ -54,7 +59,8 @@ class ReplicaService {
       }
       throw "Server Response Error";
     } on DioError catch(e) {
-      throw "Server Error";
+      ErrorUtil.checkDioError(e);
+      rethrow;
     } catch(e) {
       throw "Unknown Error";
     }

@@ -27,9 +27,9 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
       return await replicaService.getReplicas(userId);
     });
     state.whenOrNull(
-      error: (error, stackTrace){
-        ref.read(errorProvider.notifier).createException(exception: "Error adding replica.", errorTitle: "Error");
-      },
+        error: (error, stackTrace) {
+          ref.read(errorProvider.notifier).transformError(error.toString());
+        }
     );
   }
 
@@ -45,7 +45,7 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
         ref.read(isLoadingProvider.notifier).state = false;
       },
       error: (error, stackTrace){
-        ref.read(errorProvider.notifier).createException(exception: "Error adding replica.", errorTitle: "Error");
+        ref.read(errorProvider.notifier).transformError(error.toString());
         ref.read(isLoadingProvider.notifier).state = false;
       },
       loading: (){

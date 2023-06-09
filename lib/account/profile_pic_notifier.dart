@@ -44,6 +44,11 @@ class ProfilePickNotifier extends AsyncNotifier<ProfilePicModel>{
     state = await AsyncValue.guard(() async {
       return await accountService.initialProfilePic(colors[index], userId);
     });
+    state.whenOrNull(
+      error: (error, stackTrace) {
+        ref.read(errorProvider.notifier).transformError(error.toString());
+      }
+    );
   }
 
   Future<void> changeAvatarFromGallery(int userId, BuildContext context) async {
@@ -60,7 +65,7 @@ class ProfilePickNotifier extends AsyncNotifier<ProfilePicModel>{
       if(error is PlatformException){
         Navigator.pop(context);
       }else {
-        ref.read(errorProvider.notifier).createException(exception: error.toString(), errorTitle: "Unknown Error");
+        ref.read(errorProvider.notifier).transformError(error.toString());
       }
     });
   }
@@ -79,7 +84,7 @@ class ProfilePickNotifier extends AsyncNotifier<ProfilePicModel>{
       if(error is PlatformException){
         Navigator.pop(context);
       }else {
-        ref.read(errorProvider.notifier).createException(exception: error.toString(), errorTitle: "Unknown Error");
+        ref.read(errorProvider.notifier).transformError(error.toString());
       }
     });
   }

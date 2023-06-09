@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 
+import 'package:image_picker/image_picker.dart';
+
 import 'package:diploma_work_mobile/account/profile_pic_model.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
+import 'package:diploma_work_mobile/misc/error/error_util.dart';
 import 'package:diploma_work_mobile/misc/util/api_config.dart';
 import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
 import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AccountService {
   Future<User> changeUsername(String name, int id) async {
@@ -28,8 +30,9 @@ class AccountService {
         }
       }
       throw "Error occurred while getting the data!";
-    } on DioError {
-      throw "Server Error";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
     } catch(e) {
       throw "Unknown Error";
     }
@@ -51,8 +54,9 @@ class AccountService {
         }
       }
       throw "Unknown Error";
-    } on DioError {
-      throw "Server Error";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
     } catch(e) {
       throw "Unknown Error";
     }
@@ -72,8 +76,9 @@ class AccountService {
         }
       }
       return "";
-    } on DioError {
-      throw "Server Error";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
     } catch(e) {
       throw "Unknown Error";
     }
@@ -98,8 +103,9 @@ class AccountService {
         }
       }
       throw "Unknown Error";
-    } on DioError {
-      throw "Server Error";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
     } catch(e) {
       throw "Unknown Error";
     }

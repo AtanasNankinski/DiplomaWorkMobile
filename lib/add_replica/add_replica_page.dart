@@ -69,12 +69,8 @@ class AddReplicaPage extends ConsumerWidget {
               String type = _convertType(ref.watch(addReplicaTypeProvider));
               double power = ref.watch(addReplicaPowerProvider);
               if(errorTextState.validateFields(name, type, power, userId)){
-                ref.read(replicaProvider.notifier).createReplica(
-                  name,
-                  type,
-                  power,
-                  userId,
-                );
+                ref.read(replicaProvider.notifier).createReplica(name,type, power, userId);
+                Navigator.pop(context);
               }
             },
             content: "Finalize",

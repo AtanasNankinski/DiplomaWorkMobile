@@ -35,7 +35,6 @@ class DioInterceptor extends Interceptor {
       super.onError(err, handler);
     }
   }
-
 }
 
 class DioInstance {

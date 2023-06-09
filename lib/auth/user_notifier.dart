@@ -60,7 +60,8 @@ class UserNotifier extends AsyncNotifier<User> {
         }
       },
       error: (error, stackTrace) {
-        _checkError(error.toString());
+        String errorText = ref.read(errorProvider.notifier).checkError(error.toString());
+        ref.read(loginProvider.notifier).setErrorMessage(errorMessage: errorText);
       }
     );
   }
@@ -77,7 +78,8 @@ class UserNotifier extends AsyncNotifier<User> {
         }
       },
       error: (error, stackTrace) {
-        _checkError(error.toString());
+        String errorText = ref.read(errorProvider.notifier).checkError(error.toString());
+        ref.read(registerProvider.notifier).setErrorMessage(errorMessage: errorText);
       },
     );
   }
@@ -89,20 +91,9 @@ class UserNotifier extends AsyncNotifier<User> {
     });
     state.whenOrNull(
       error: (error, stackTrace) {
-        _checkError(error.toString());
+        String errorText = ref.read(errorProvider.notifier).checkError(error.toString());
+        ref.read(accountPageProvider.notifier).setErrorMessage(errorMessage: errorText);
       },
     );
-  }
-
-  void _checkError(String error) async {
-    if(error == '422'){
-      ref.read(registerProvider.notifier).setErrorMessage(errorMessage: "Email is already taken or credentials are incorrect.");
-      ref.read(loginProvider.notifier).setErrorMessage(errorMessage: "Email is already taken or credentials are incorrect.");
-    }else if(error == '401'){
-      ref.read(registerProvider.notifier).setErrorMessage(errorMessage: "Wrong credentials.");
-      ref.read(loginProvider.notifier).setErrorMessage(errorMessage: "Wrong credentials.");
-    }else {
-      ref.read(errorProvider.notifier).createException(exception: error, errorTitle: "Unknown Error");
-    }
   }
 }
