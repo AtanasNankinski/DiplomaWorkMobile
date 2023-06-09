@@ -4,11 +4,11 @@ import 'package:diploma_work_mobile/misc/error/error_notifier.dart';
 
 class ErrorUtil {
   static void checkDioError(DioError error) {
-    int statusCode = error.response!.statusCode!;
-
     if(error.type == DioErrorType.connectionTimeout){
       throw ErrorCodes.timeout;
     }
+
+    int statusCode = error.response!.statusCode!;
 
     switch(statusCode){
       case 401:

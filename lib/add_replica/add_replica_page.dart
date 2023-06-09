@@ -92,6 +92,7 @@ class AddReplicaPage extends ConsumerWidget {
               replicaName: ref.watch(addReplicaNameProvider),
               replicaType: _convertType(ref.watch(addReplicaTypeProvider)),
               replicaPower: ref.watch(addReplicaPowerProvider),
+              hasOptions: false,
             ),
           ),
           const Spacer(),

@@ -13,23 +13,29 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
 
   @override
   FutureOr<List<Replica>> build() async {
-    int userId = ref.watch(userProvider).value!.id!;
-    final replicas = await replicaService.getReplicas(userId);
-    if(replicas.isNotEmpty){
-      return replicas;
+    try {
+      int userId = ref.watch(userProvider).value!.id!;
+      final replicas = await replicaService.getReplicas(userId);
+      if(replicas.isNotEmpty){
+        return replicas;
+      }
+      return [];
+    } catch(e) {
+      ref.read(errorProvider.notifier).transformError(e.toString());
+      return [];
     }
-    return [];
   }
 
   Future<void> getAllReplicas(int userId) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      ref.read(isLoadingProvider.notifier).state = true;
       return await replicaService.getReplicas(userId);
     });
     state.whenOrNull(
         error: (error, stackTrace) {
           ref.read(errorProvider.notifier).transformError(error.toString());
-        }
+        },
     );
   }
 
@@ -40,21 +46,35 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
       state.value!.add(addedReplica);
       return state.value!;
     });
-    state.when(
-      data: (data) {
-        ref.read(isLoadingProvider.notifier).state = false;
-      },
+    state.whenOrNull(
       error: (error, stackTrace){
         ref.read(errorProvider.notifier).transformError(error.toString());
-        ref.read(isLoadingProvider.notifier).state = false;
-      },
-      loading: (){
-        ref.read(isLoadingProvider.notifier).state = true;
       },
     );
   }
 
   Future<void> deleteReplica(String replicaName, int userId) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      ref.read(isLoadingProvider.notifier).state = true;
+      await replicaService.deleteReplica(replicaName, userId);
+      return await replicaService.getReplicas(userId);
+    });
+    state.when(
+      data: (data) {
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
+      error: (error, stackTrace){
+        ref.read(isLoadingProvider.notifier).state = false;
+        ref.read(errorProvider.notifier).transformError(error.toString());
+      },
+      loading: () {
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
+    );
+  }
+
+  Future<void> editReplica(String replicaName, String replicaType, double replicaPower, int userId) async {
 
   }
 }

@@ -51,6 +51,9 @@ class ErrorNotifier extends Notifier<ErrorModel>{
       case ErrorCodes.server:
         createException(exception: ErrorTexts.serverText, errorTitle: ErrorTexts.defaultErrorTitle);
         break;
+      case ErrorCodes.timeout:
+        createException(exception: ErrorTexts.timeoutText, errorTitle: ErrorTexts.defaultErrorTitle);
+        break;
       default:
         createException(exception: ErrorTexts.defaultText, errorTitle: ErrorTexts.defaultErrorTitle);
     }
@@ -76,4 +79,5 @@ class ErrorTexts {
   static const String notFoundText = "Content not found.";
   static const String defaultText = "Unknown Error.";
   static const String defaultErrorTitle = "Error";
+  static const String timeoutText = "Server Timeout - Check internet connection.";
 }

@@ -145,6 +145,7 @@ class AccountPage extends ConsumerWidget {
                   replicaName: replica.replicaName,
                   replicaType: replica.replicaType,
                   replicaPower: replica.replicaPower,
+                  hasOptions: true,
               ),
               addReplicaContainer(
                 context: context,

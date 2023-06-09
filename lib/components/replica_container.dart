@@ -1,17 +1,24 @@
+import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
 import 'package:flutter/material.dart';
 
-import 'package:diploma_work_mobile/misc/util/colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ReplicaContainer extends StatelessWidget {
-  const ReplicaContainer({Key? key, required this.replicaName, required this.replicaType, required this.replicaPower}) : super(key: key);
+import 'package:diploma_work_mobile/misc/util/colors.dart';
+import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
+
+class ReplicaContainer extends ConsumerWidget {
+  const ReplicaContainer({Key? key, required this.replicaName, required this.replicaType, required this.replicaPower, required this.hasOptions}) : super(key: key);
 
   final String replicaName;
   final String replicaType;
   final double replicaPower;
+  final bool hasOptions;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ReplicaType convertedType = _convertReplicaType(replicaType);
+    final int userId = ref.watch(userProvider).value!.id!;
 
     return Container(
       width: 140,
@@ -49,14 +56,35 @@ class ReplicaContainer extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 3),
-                child: IconButton(
-                  onPressed: (){},
-                  icon: const Icon(Icons.more_vert),
-                  splashRadius: 1,
-                  constraints: const BoxConstraints(),
-                  padding: EdgeInsets.zero,
-                  alignment: Alignment.centerRight,
-                ),
+                child: hasOptions
+                    ? PopupMenuButton(
+                        splashRadius: 1,
+                        padding: const EdgeInsets.all(0),
+                        child: const Icon(Icons.more_vert),
+                        elevation: 0,
+                        itemBuilder: (BuildContext context){
+                          return [
+                            const PopupMenuItem(
+                              child: Text("Delete"),
+                              value: _MenuItems.delete,
+                            ),
+                            const PopupMenuItem(
+                              child: Text("Edit"),
+                              value: _MenuItems.edit,
+                            ),
+                          ];
+                        },
+                        onSelected: (value){
+                          switch(value) {
+                            case _MenuItems.delete:
+                              ref.read(replicaProvider.notifier).deleteReplica(replicaName, userId);
+                              break;
+                            case _MenuItems.edit:
+                              Navigator.pushNamed(context, RoutingConst.addReplicaRoute);
+                          }
+                        },
+                      )
+                    : Container(),
               )
             ],
           ),
@@ -143,4 +171,9 @@ enum ReplicaType{
   assaultRifle,
   sniper,
   empty
+}
+
+enum _MenuItems {
+  delete,
+  edit
 }

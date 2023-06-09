@@ -65,4 +65,27 @@ class ReplicaService {
       throw "Unknown Error";
     }
   }
+
+  Future<void> deleteReplica(String replicaName, int userId) async {
+    try {
+      final formData = FormData.fromMap({
+        'replica_name':replicaName,
+        'user_id':userId
+      });
+
+      final request = await DioInstance().dio.post(ApiConfig.deleteReplica, data: formData);
+
+      if(request.statusCode != null) {
+        if(request.statusCode! >= 200 && request.statusCode! < 300) {
+          return;
+        }
+      }
+      throw "Error deleting replica.";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
+    } catch(e) {
+      throw "Unknown Error";
+    }
+  }
 }
