@@ -14,16 +14,46 @@ class ReplicaService {
       final request = await DioInstance().dio.post(ApiConfig.getReplicas, data: formData);
 
       if(request.statusCode != null) {
-        if(request.statusCode! >= 200 && request.statusCode! < 300){
+        if(request.statusCode! >= 200 && request.statusCode! < 300) {
           final response = request.data['replicas'];
           for(var replica in response) {
-            replicaList.add(Replica.fromJson(replica));
+            String name = replica['replica_name'];
+            String type = replica['replica_type'];
+            double power = replica['replica_power'].toDouble();
+            replicaList.add(Replica(replicaName: name, replicaType: type, replicaPower: power));
           }
           return replicaList;
         }
       }
       throw "Server Response Error";
     } on DioError {
+      throw "Server Error";
+    } catch(e) {
+      throw "Unknown Error";
+    }
+  }
+
+  Future<Replica> addReplica(String replicaName, String replicaType, double replicaPower, int userId) async {
+    try {
+      final formData = FormData.fromMap({
+        "replica_name":replicaName,
+        "replica_type":replicaType,
+        "replica_power":replicaPower,
+        "user_id":userId
+      });
+      final request = await DioInstance().dio.post(ApiConfig.addReplica, data: formData);
+
+      if(request.statusCode != null) {
+        if(request.statusCode! >= 200 && request.statusCode! < 300) {
+          final response = request.data;
+          final replica = Replica.fromJson(response);
+          if(replica != Replica.empty()) {
+            return replica;
+          }
+        }
+      }
+      throw "Server Response Error";
+    } on DioError catch(e) {
       throw "Server Error";
     } catch(e) {
       throw "Unknown Error";

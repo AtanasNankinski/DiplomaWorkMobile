@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/misc/styles/decorations.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 class DefaultInputField extends ConsumerWidget {
-  const DefaultInputField({Key? key, required this.controller, required this.inputType, this.hintText = ""}) : super(key: key);
+  const DefaultInputField({Key? key, required this.controller, required this.inputType, this.hintText = "", this.enabled = true, this.onChanged}) : super(key: key);
 
   final TextEditingController controller;
   final TextFieldType inputType;
   final String hintText;
+  final bool enabled;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,6 +48,7 @@ class DefaultInputField extends ConsumerWidget {
                         },
                       ),
         ),
+        onChanged: onChanged,
         controller: controller,
         enableSuggestions: _isPasswordField(inputType)
             ? false
@@ -55,8 +59,9 @@ class DefaultInputField extends ConsumerWidget {
             : false,
         textInputAction: TextInputAction.done,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Colors.black.withOpacity(0.8),
+          color: colorTextInputField,
         ),
+        enabled: enabled,
       ),
     );
   }

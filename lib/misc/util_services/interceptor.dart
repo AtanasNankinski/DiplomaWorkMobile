@@ -26,6 +26,7 @@ class DioInterceptor extends Interceptor {
       );
     }
   }
+
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     if(err.response?.statusCode != null){
@@ -34,6 +35,7 @@ class DioInterceptor extends Interceptor {
       super.onError(err, handler);
     }
   }
+
 }
 
 class DioInstance {

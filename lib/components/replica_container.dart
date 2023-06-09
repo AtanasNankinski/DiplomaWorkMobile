@@ -18,7 +18,7 @@ class ReplicaContainer extends StatelessWidget {
       height: 100,
       padding: const EdgeInsets.only(top: 6, bottom: 6),
       decoration: BoxDecoration(
-        color: colorReplicaBoxBG,
+        color: replicaPower != 0 ? colorReplicaBoxBG : colorAddReplicaBoxBG,
         border: Border.all(
             color: _determineBorderColor(replicaPower),
             width: 2
@@ -61,25 +61,27 @@ class ReplicaContainer extends StatelessWidget {
             ],
           ),
           Center(
-            child: Container(
-              width: 80,
-              height: 20,
-              margin: const EdgeInsets.only(bottom: 6),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        _determineIcon(convertedType),
-                      ),
-                      fit: BoxFit.fill
+            child: convertedType != ReplicaType.empty
+                ? Container(
+                    width: 80,
+                    height: 20,
+                    margin: const EdgeInsets.only(bottom: 6),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                              _determineIcon(convertedType),
+                            ),
+                            fit: BoxFit.fill
+                        )
+                    ),
                   )
-              ),
-            ),
+                : Container(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Power: ${replicaPower}J",
+                "Power: ${replicaPower != 0 ? replicaPower : ""}J",
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: colorTextDark,
                 ),
@@ -92,7 +94,9 @@ class ReplicaContainer extends StatelessWidget {
   }
 
   Color _determineBorderColor(double power){
-    if(power <= 1.3) {
+    if(power == 0) {
+      return colorAddReplicaBoxBorder;
+    }else if(power <= 1.3) {
       return colorReplicaBoxGreen;
     }else if(power > 1.3 && power <= 1.7) {
       return colorReplicaBoxYellow;
@@ -111,6 +115,9 @@ class ReplicaContainer extends StatelessWidget {
         return 'assets/icon_assault_rifle.png';
       case ReplicaType.sniper:
         return 'assets/icon_sniper_trimmed.png';
+      case ReplicaType.empty:
+        return '';
+
     }
   }
 
@@ -125,7 +132,7 @@ class ReplicaContainer extends StatelessWidget {
       case "sniper":
         return ReplicaType.sniper;
       default:
-        return ReplicaType.assaultRifle;
+        return ReplicaType.empty;
     }
   }
 }
@@ -135,4 +142,5 @@ enum ReplicaType{
   smg,
   assaultRifle,
   sniper,
+  empty
 }
