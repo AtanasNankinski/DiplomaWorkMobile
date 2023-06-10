@@ -1,5 +1,6 @@
-import 'package:diploma_work_mobile/misc/error/error_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:diploma_work_mobile/misc/error/error_provider.dart';
 
 class AddReplicaNotifier extends Notifier<String> {
   @override

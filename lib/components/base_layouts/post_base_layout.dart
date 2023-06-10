@@ -29,11 +29,11 @@ class PostBaseLayout extends ConsumerWidget {
                     padding: const EdgeInsets.all(30),
                     child: child,
                   ),
-                  errorState.showError
-                      ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
-                      : Container(),
                   ref.watch(isLoadingProvider)
                       ? loadingWidget()
+                      : Container(),
+                  errorState.showError
+                      ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
                       : Container(),
                 ]
               ),

@@ -13,6 +13,7 @@ class ApiConfig {
   static String getReplicas = "api/get_replicas";
   static String addReplica = "api/add_replica";
   static String deleteReplica = "api/delete_replica";
+  static String editReplica = "api/edit_replica";
 
   //Test or not currently used routes
   static String testProfilePic = "api/test_file";

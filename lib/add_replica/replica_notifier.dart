@@ -32,10 +32,17 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
       ref.read(isLoadingProvider.notifier).state = true;
       return await replicaService.getReplicas(userId);
     });
-    state.whenOrNull(
-        error: (error, stackTrace) {
-          ref.read(errorProvider.notifier).transformError(error.toString());
-        },
+    state.when(
+      data: (data) {
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
+      error: (error, stackTrace) {
+        ref.read(isLoadingProvider.notifier).state = false;
+        ref.read(errorProvider.notifier).transformError(error.toString());
+      },
+      loading: () {
+        ref.read(isLoadingProvider.notifier).state = true;
+      },
     );
   }
 
@@ -69,12 +76,22 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
         ref.read(errorProvider.notifier).transformError(error.toString());
       },
       loading: () {
-        ref.read(isLoadingProvider.notifier).state = false;
+        ref.read(isLoadingProvider.notifier).state = true;
       },
     );
   }
 
   Future<void> editReplica(String replicaName, String replicaType, double replicaPower, int userId) async {
-
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await replicaService.editReplica(replicaName, replicaType, replicaPower, userId);
+      getAllReplicas(userId);
+      return state.value!;
+    });
+    state.whenOrNull(
+      error: (error, stackTrace){
+        ref.read(errorProvider.notifier).transformError(error.toString());
+      },
+    );
   }
 }

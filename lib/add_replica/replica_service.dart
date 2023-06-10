@@ -88,4 +88,34 @@ class ReplicaService {
       throw "Unknown Error";
     }
   }
+
+  Future<Replica> editReplica(String replicaName, String replicaType, double replicaPower, int userId) async {
+    try {
+      final formData = FormData.fromMap({
+        "replica_name":replicaName,
+        "replica_type":replicaType,
+        "replica_power":replicaPower,
+        "user_id":userId
+      });
+      final request = await DioInstance().dio.post(ApiConfig.editReplica, data: formData);
+      if(request.statusCode != null) {
+        if(request.statusCode! >= 200 && request.statusCode! < 300) {
+          final response = request.data;
+          String name = response['replica_name'];
+          String type = response['replica_type'];
+          double power = double.parse(response['replica_power']);
+          final replica = Replica(replicaName: name, replicaType: type, replicaPower: power);
+          if(replica != Replica.empty()) {
+            return replica;
+          }
+        }
+      }
+      throw "Server Response Error";
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
+    } catch(e) {
+      throw "Unknown Error";
+    }
+  }
 }

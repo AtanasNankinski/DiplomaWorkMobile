@@ -74,11 +74,11 @@ class BasePageWidget extends ConsumerWidget {
                           padding: const EdgeInsets.all(30.0),
                           child: child,
                         ),
-                        errorState.showError
-                            ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
-                            : Container(),
                         ref.watch(isLoadingProvider)
                             ? loadingWidget()
+                            : Container(),
+                        errorState.showError
+                            ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
                             : Container(),
                       ]
                     )

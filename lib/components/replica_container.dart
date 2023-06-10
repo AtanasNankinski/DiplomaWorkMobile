@@ -80,7 +80,14 @@ class ReplicaContainer extends ConsumerWidget {
                               ref.read(replicaProvider.notifier).deleteReplica(replicaName, userId);
                               break;
                             case _MenuItems.edit:
-                              Navigator.pushNamed(context, RoutingConst.addReplicaRoute);
+                              Navigator.pushNamed(
+                                context,
+                                RoutingConst.addReplicaRoute,
+                                arguments: {
+                                  'replica_name':replicaName,
+                                  'is_editing':true,
+                                },
+                              );
                           }
                         },
                       )
