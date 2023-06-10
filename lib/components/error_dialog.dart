@@ -40,7 +40,7 @@ class ErrorDialog extends ConsumerWidget {
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: colorTextDark,
                   ),
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20,),
                 errorButton(

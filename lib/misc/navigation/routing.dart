@@ -9,7 +9,7 @@ import 'package:diploma_work_mobile/games/games_page.dart';
 import 'package:diploma_work_mobile/score/score_page.dart';
 import 'package:diploma_work_mobile/settings/settings_page.dart';
 import 'package:diploma_work_mobile/account/account_page.dart';
-import 'package:diploma_work_mobile/account/add_replica_page.dart';
+import 'package:diploma_work_mobile/add_replica/add_replica_page.dart';
 
 class Routing {
   static Route<dynamic> generateRoute(RouteSettings settings){

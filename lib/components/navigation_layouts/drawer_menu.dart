@@ -17,13 +17,15 @@ class DrawerMenu extends ConsumerWidget {
     return Drawer(
       backgroundColor: colorDrawerBG,
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 30,),
-            const BuildMenuHeader(),
-            buildMenuBody(context, _userType),
-          ],
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 12,),
+              const BuildMenuHeader(),
+              buildMenuBody(context, _userType),
+            ],
+          ),
         ),
       ),
     );

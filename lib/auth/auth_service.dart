@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import 'package:diploma_work_mobile/auth/user_model.dart';
 import 'package:diploma_work_mobile/misc/util/api_config.dart';
 import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
+import 'package:diploma_work_mobile/misc/error/error_notifier.dart';
+import 'package:diploma_work_mobile/misc/util_services/shared_preferences_service.dart';
 
 class AuthService {
   Future<User> logout() async {
@@ -49,8 +50,8 @@ class AuthService {
         final convUser = User.fromJson(user);
         SharedPreferencesService().setUser(convUser.id!, convUser.name, convUser.email, convUser.userType, convUser.accessToken);
         return convUser;
-      }else if(response.statusCode == 401){
-        throw "401";
+      }else if(response.statusCode == 422){
+        throw ErrorCodes.loginWrongCredentials;
       }
       return User(id: null, name: "", email: "", userType: 0, accessToken: "");
     } catch(e) {
@@ -75,7 +76,7 @@ class AuthService {
         await SharedPreferencesService().setUser(convUser.id!, convUser.name, convUser.email, convUser.userType, convUser.accessToken);
         return convUser;
       }else if(response.statusCode == 422){
-        throw "422";
+        throw ErrorCodes.registerWrongCredentials;
       }
       return User(id: null, name: "", email: "", userType: 0, accessToken: "");
     } catch(e) {
