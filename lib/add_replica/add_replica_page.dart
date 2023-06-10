@@ -45,7 +45,7 @@ class AddReplicaPage extends ConsumerWidget {
             hintText: "Replica Name",
             enabled: !isEditing,
             onChanged: (value) {
-              if(value.length < 10){
+              if(value.length <= 12){
                 ref.read(addReplicaNameProvider.notifier).state = value;
                 errorTextState.clearErrorMessage();
               }else {

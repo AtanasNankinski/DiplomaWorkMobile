@@ -87,13 +87,21 @@ class UserNotifier extends AsyncNotifier<User> {
   Future<void> updateUsername(String name) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      ref.read(isLoadingProvider.notifier).state = true;
       return await accountService.changeUsername(name, state.value!.id!);
     });
-    state.whenOrNull(
+    state.when(
+      data: (data) {
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
       error: (error, stackTrace) {
         String errorText = ref.read(errorProvider.notifier).checkError(error.toString());
         ref.read(accountPageProvider.notifier).setErrorMessage(errorMessage: errorText);
+        ref.read(isLoadingProvider.notifier).state = false;
       },
+      loading: (){
+        ref.read(isLoadingProvider.notifier).state = true;
+      }
     );
   }
 }

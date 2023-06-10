@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diploma_work_mobile/misc/error/error_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/add_replica/replica_model.dart';
@@ -21,6 +22,9 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
       }
       return [];
     } catch(e) {
+      if(e == ErrorCodes.notFound){
+        return [];
+      }
       ref.read(errorProvider.notifier).transformError(e.toString());
       return [];
     }
