@@ -22,7 +22,7 @@ class AddReplicaNotifier extends Notifier<String> {
       return false;
     }
 
-    if(name.isNotEmpty && type.isNotEmpty && power <= 10 && power > 0){
+    if(name.isNotEmpty && type.isNotEmpty && power <= 12 && power > 0){
       return true;
     }
     setErrorMessage("There are empty fields or wrong data.");
