@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
@@ -19,7 +20,7 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginWatch = ref.watch(loginProvider);
+    final errorText = ref.watch(loginProvider);
     final loginRead = ref.read(loginProvider.notifier);
     final auth = ref.read(userProvider.notifier);
 
@@ -47,14 +48,7 @@ class LoginPage extends ConsumerWidget {
                 controller: _passwordController,
                 inputType: TextFieldType.password,
               ),
-              Center(
-                child: Text(
-                  loginWatch,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
+              validationErrorText(context, errorText),
               const Spacer(),
               Container(
                 margin: const EdgeInsets.only(top: 20, bottom: 4),

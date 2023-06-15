@@ -25,18 +25,20 @@ class AdminPanelNotifier extends Notifier<String> {
       ref.read(errorProvider.notifier).createException(exception: "Unknown user error occurred.", errorTitle: "User Error");
       return;
     }
-    if(_validateData(gameTitle, gameDescription, date)){
-      String stringDate = date.toString();
-      if(await gameService.addGame(gameTitle, gameDescription, stringDate, user.id!)) {
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
+    if(!_validateData(gameTitle, gameDescription, date)){
+      state = "There are empty fields or invalid date!";
+      return;
+    }
+    String stringDate = date.toString();
+    if(await gameService.addGame(gameTitle, gameDescription, stringDate, user.id!)) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      state = "";
     }
   }
 
   bool _validateData(String gameTitle, String gameDescription, DateTime date) {
     if(gameTitle.isNotEmpty && gameDescription.isNotEmpty){
-      final currentDate = DateTime.now();
-      if(date != DateTime(currentDate.year, currentDate.month, currentDate.day)){
+      if(date.isAfter(DateTime.now())){
         return true;
       }
     }

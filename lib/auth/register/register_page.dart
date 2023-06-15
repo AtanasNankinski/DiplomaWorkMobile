@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
@@ -52,15 +53,7 @@ class RegisterPage extends ConsumerWidget {
                 controller: _confirmPasswordController,
                 inputType: TextFieldType.passwordConfirmation,
               ),
-              Center(
-                child: Text(
-                  errorText,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Colors.red,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              validationErrorText(context, errorText),
               const Spacer(),
               Container(
                 margin: const EdgeInsets.only(top: 20, bottom: 4),

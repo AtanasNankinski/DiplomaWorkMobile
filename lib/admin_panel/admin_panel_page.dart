@@ -1,4 +1,5 @@
 import 'package:diploma_work_mobile/admin_panel/game_providers.dart';
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -63,6 +64,7 @@ class AdminPanelPage extends ConsumerWidget {
               ),
             ],
           ),
+          validationErrorText(context, ref.watch(adminPanelProvider)),
           const Spacer(),
           primaryButton(
             onPressed: (){

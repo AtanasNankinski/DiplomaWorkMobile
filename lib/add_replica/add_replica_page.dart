@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -81,15 +82,7 @@ class AddReplicaPage extends ConsumerWidget {
             content: "Finalize",
             context: context,
           ),
-          Center(
-            child: Text(
-              errorText,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Colors.red,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          validationErrorText(context, errorText),
           sectionSeparator("Preview", context, false),
           const Spacer(),
           Center(

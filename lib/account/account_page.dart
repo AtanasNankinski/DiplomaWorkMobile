@@ -1,4 +1,5 @@
 import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -114,15 +115,7 @@ class AccountPage extends ConsumerWidget {
               margin: const EdgeInsets.only(bottom: 12),
               child: DefaultInputField(controller: lastNameController, inputType: TextFieldType.text, hintText: "Last Name",)
           ),
-          Center(
-            child: Text(
-              errorText,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Colors.red,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          validationErrorText(context, errorText),
           primaryOutlinedButton(
             context: context,
             buttonText: "Change Name",
