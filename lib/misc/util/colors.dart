@@ -15,6 +15,7 @@ const colorButtonMain = Color(0xFF0BDC84);
 const colorButtonText = Colors.black;
 const colorButtonError = Colors.red;
 const colorIconButtonGrey = Color(0xFF828181);
+const colorButtonDisabled = Color(0xFFD9D9D9);
 
 //App Bar Theme Colors
 const colorAppBarBG = Colors.black;

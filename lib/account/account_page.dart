@@ -89,8 +89,6 @@ class AccountPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(left: 50, right: 50),
             child: primaryOutlinedButton(
-              context: context,
-              buttonText: "Change Avatar",
               onPressed: (){
                 showModalBottomSheet(context: context, builder: (context) {
                   return imagePickModal(
@@ -107,6 +105,8 @@ class AccountPage extends ConsumerWidget {
                   );
                 });
               },
+              content: "Change Avatar",
+              context: context,
             ),
           ),
           sectionSeparator("Name", context, false),
@@ -117,8 +117,6 @@ class AccountPage extends ConsumerWidget {
           ),
           validationErrorText(context, errorText),
           primaryOutlinedButton(
-            context: context,
-            buttonText: "Change Name",
             onPressed: (){
               if(accountProviderRead.validateNameFields(firstNameController.text, lastNameController.text)){
                 String fullName = "${firstNameController.text} ${lastNameController.text}";
@@ -127,6 +125,8 @@ class AccountPage extends ConsumerWidget {
                 lastNameController.text = "";
               }
             },
+            content: "Change Name",
+            context: context,
           ),
           sectionSeparator("Replicas", context, false),
           Wrap(

@@ -60,6 +60,7 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
           fontWeight: FontWeight.bold,
         )
     ),
+    disabledBackgroundColor: colorButtonDisabled,
   ),
 );
 
