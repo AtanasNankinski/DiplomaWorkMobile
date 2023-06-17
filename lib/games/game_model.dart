@@ -19,9 +19,9 @@ class Game {
   factory Game.fromJson(Map<String, dynamic> map) {
     return Game(
       id: map['id'],
-      title: map['title'],
-      description: map['description'],
-      date: map['date'],
+      title: map['game_title'],
+      description: map['game_description'],
+      date: map['game_date'],
       participants: map['participants'],
     );
   }

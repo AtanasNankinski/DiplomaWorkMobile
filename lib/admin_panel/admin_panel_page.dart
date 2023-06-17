@@ -1,5 +1,3 @@
-import 'package:diploma_work_mobile/admin_panel/game_providers.dart';
-import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +6,8 @@ import 'package:diploma_work_mobile/components/base_layouts/base_page_widget.dar
 import 'package:diploma_work_mobile/components/section_separator.dart';
 import 'package:diploma_work_mobile/components/text_inputs/add_game_input.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_button.dart';
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
+import 'package:diploma_work_mobile/admin_panel/admin_poviders.dart';
 
 class AdminPanelPage extends ConsumerWidget {
   AdminPanelPage({Key? key}) : super(key: key);

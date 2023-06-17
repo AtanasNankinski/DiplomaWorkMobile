@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/auth/auth_providers.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
-import 'package:diploma_work_mobile/admin_panel/game_service.dart';
+import 'package:diploma_work_mobile/games/game_service.dart';
 import 'package:diploma_work_mobile/misc/error/error_provider.dart';
 
 class AdminPanelNotifier extends Notifier<String> {

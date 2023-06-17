@@ -15,6 +15,9 @@ class ApiConfig {
   static String deleteReplica = "api/delete_replica";
   static String editReplica = "api/edit_replica";
   static String addGame = "api/create_game";
+  static String getGames = "api/get_games";
+  static String getValidGames = "api/get_valid_games";
+  static String getPastGames = "api/get_past_games";
 
   //Test or not currently used routes
   static String testProfilePic = "api/test_file";

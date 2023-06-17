@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:diploma_work_mobile/admin_panel/game_model.dart';
+import 'package:diploma_work_mobile/games/game_model.dart';
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:diploma_work_mobile/components/buttons/game_primary_button.dart';
 import 'package:diploma_work_mobile/components/buttons/game_outlined_button.dart';
-import 'package:intl/intl.dart';
 
 class GameContainer extends StatelessWidget {
-  const GameContainer({Key? key, required this.game}) : super(key: key);
+  const GameContainer({Key? key, required this.game, required this.userType}) : super(key: key);
 
   final Game game;
+  final int userType;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class GameContainer extends StatelessWidget {
               Column(
                 children: [
                   gamePrimaryButton(
-                    onPressed: isValid
+                    onPressed: isValid && userType == 2
                         ? (){}
                         : null,
                     content: isValid
