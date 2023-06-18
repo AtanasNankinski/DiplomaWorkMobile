@@ -15,7 +15,7 @@ class GamesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Game> games = [];
-    ref.watch(gamesPageNotifier).whenData((value) {
+    ref.watch(gamesPageProvider).whenData((value) {
       games = value;
     });
     final User user = ref.watch(userProvider).value ?? User.empty();
@@ -27,7 +27,7 @@ class GamesPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           for(var game in games)
-            GameContainer(game: game, userType: user.userType,),
+            GameContainer(game: game, user: user,),
         ],
       ) : const Center(
         child: Text("No games at the moment"),

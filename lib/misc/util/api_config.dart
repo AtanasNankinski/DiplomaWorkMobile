@@ -18,6 +18,8 @@ class ApiConfig {
   static String getGames = "api/get_games";
   static String getValidGames = "api/get_valid_games";
   static String getPastGames = "api/get_past_games";
+  static String createPlayer = "api/create_player";
+  static String getPlayers = "api/get_players";
 
   //Test or not currently used routes
   static String testProfilePic = "api/test_file";

@@ -18,10 +18,11 @@ class ReplicaService {
         if(request.statusCode! >= 200 && request.statusCode! < 300) {
           final response = request.data['replicas'];
           for(var replica in response) {
+            int id = replica['id'];
             String name = replica['replica_name'];
             String type = replica['replica_type'];
             double power = replica['replica_power'].toDouble();
-            replicaList.add(Replica(replicaName: name, replicaType: type, replicaPower: power));
+            replicaList.add(Replica(replicaId: id, replicaName: name, replicaType: type, replicaPower: power));
           }
           return replicaList;
         }

@@ -62,4 +62,20 @@ class GameService {
       throw "Unknown Error";
     }
   }
+
+  Future<void> joinGame(int userId, int replicaId, int gameId) async {
+    final formData = FormData.fromMap({
+      'user_id': userId,
+      'replica_id':replicaId,
+      'game_id':gameId,
+    });
+    final request = await DioInstance().dio.post(ApiConfig.createPlayer, data: formData);
+
+    if(request.statusCode != null) {
+      if(request.statusCode! >= 200 && request.statusCode! < 300) {
+        return;
+      }
+    }
+    throw "Error trying to join game.";
+  }
 }

@@ -16,7 +16,7 @@ import 'package:diploma_work_mobile/components/replica_container.dart';
 import 'package:diploma_work_mobile/account/account_providers.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
 import 'package:diploma_work_mobile/components/avatar_with_image.dart';
-import 'package:diploma_work_mobile/components/image_pick_modal.dart';
+import 'package:diploma_work_mobile/components/modals/image_pick_modal.dart';
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 
 class AccountPage extends ConsumerWidget {

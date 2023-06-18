@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:diploma_work_mobile/games/game_model.dart';
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:diploma_work_mobile/components/buttons/game_primary_button.dart';
 import 'package:diploma_work_mobile/components/buttons/game_outlined_button.dart';
+import 'package:diploma_work_mobile/components/modals/replicas_modal.dart';
+import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
+import 'package:diploma_work_mobile/auth/user_model.dart';
 
-class GameContainer extends StatelessWidget {
-  const GameContainer({Key? key, required this.game, required this.userType}) : super(key: key);
+class GameContainer extends ConsumerWidget {
+  const GameContainer({Key? key, required this.game, required this.user}) : super(key: key);
 
   final Game game;
-  final int userType;
+  final User user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isValid = isGameValid(game);
 
     return Container(
@@ -65,8 +70,13 @@ class GameContainer extends StatelessWidget {
               Column(
                 children: [
                   gamePrimaryButton(
-                    onPressed: isValid && userType == 2
-                        ? (){}
+                    onPressed: isValid && user.userType == 2
+                        ? (){
+                            ref.read(replicaProvider.notifier).getAllReplicas(user.id!);
+                            showModalBottomSheet(context: context, builder: (context) {
+                              return ReplicasModal(gameId: game.id!, userId: user.id!,);
+                            });
+                          }
                         : null,
                     content: isValid
                         ? "Join"

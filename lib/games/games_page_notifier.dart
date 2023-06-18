@@ -35,7 +35,6 @@ class GamesPageNotifier extends AsyncNotifier<List<Game>> {
 
   Future<void> getGames() async {
     state = const AsyncValue.loading();
-    Future.delayed(const Duration(seconds: 1));
     state = await AsyncValue.guard(() async {
       ref.read(isLoadingProvider.notifier).state = true;
       return await gameService.getGames();
