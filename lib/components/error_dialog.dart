@@ -20,37 +20,36 @@ class ErrorDialog extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(40),
         color: Colors.black.withOpacity(0.8),
-        child: Center(
-          child: Container(
-            color: Colors.white,
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: colorTextDark,
-                  ),
-                  textAlign: TextAlign.center,
+        alignment: Alignment.topCenter,
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: colorTextDark,
                 ),
-                const SizedBox(height: 10,),
-                Text(
-                  errorContent,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: colorTextDark,
-                  ),
-                  textAlign: TextAlign.center,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10,),
+              Text(
+                errorContent,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: colorTextDark,
                 ),
-                const SizedBox(height: 20,),
-                errorButton(
-                  context: context,
-                  onPressed: () {
-                    readState.disbandError();
-                  },
-                ),
-              ]
-            ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20,),
+              errorButton(
+                context: context,
+                onPressed: () {
+                  readState.disbandError();
+                },
+              ),
+            ]
           ),
         )
       ),

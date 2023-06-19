@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/game_details/game_details_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:diploma_work_mobile/control_widget/control_widget.dart';
@@ -57,6 +58,11 @@ class Routing {
       case RoutingConst.addReplicaRoute:
         return MaterialPageRoute(
           builder: (context) => AddReplicaPage(),
+          settings: settings,
+        );
+      case RoutingConst.gameDetails:
+        return MaterialPageRoute(
+          builder: (context) => GameDetailsPage(),
           settings: settings,
         );
       default:
