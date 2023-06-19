@@ -2,20 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/games/game_model.dart';
+import 'package:diploma_work_mobile/games/game_screens/past_game_model.dart';
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:diploma_work_mobile/components/buttons/game_primary_button.dart';
 import 'package:diploma_work_mobile/components/buttons/game_outlined_button.dart';
-import 'package:diploma_work_mobile/components/modals/replicas_modal.dart';
-import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
 import 'package:diploma_work_mobile/auth/user_model.dart';
-import 'package:diploma_work_mobile/components/modals/choose_team_modal.dart';
-import 'package:diploma_work_mobile/components/modals/default_modal_body.dart';
 
-class GameContainer extends ConsumerWidget {
-  const GameContainer({Key? key, required this.game, required this.user}) : super(key: key);
+class PastGameContainer extends ConsumerWidget {
+  const PastGameContainer({Key? key, required this.game, required this.user}) : super(key: key);
 
-  final Game game;
+  final PastGame game;
   final User user;
 
   @override
@@ -25,7 +21,7 @@ class GameContainer extends ConsumerWidget {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-            'assets/game_card_bg.png',
+            'assets/past_game_card_bg.png',
           ),
           fit: BoxFit.cover,
         ),
@@ -43,7 +39,7 @@ class GameContainer extends ConsumerWidget {
               game.title,
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold
               ),
             ),
             margin: const EdgeInsets.only(bottom: 8),
@@ -70,17 +66,8 @@ class GameContainer extends ConsumerWidget {
               Column(
                 children: [
                   gamePrimaryButton(
-                    onPressed: user.userType == 2
-                        ? () {
-                            ref.read(replicaProvider.notifier).getAllReplicas(user.id!);
-                            defaultModalBody(context, ReplicasModal(gameId: game.id!, userId: user.id!,));
-                          }
-                        : () {
-                            defaultModalBody(context, ChooseTeamModal(gameId: game.id!, userId: user.id!,));
-                          },
-                    content: user.userType == 2
-                        ? "Join"
-                        : "Finalize",
+                    onPressed: null,
+                    content: "Past",
                     context: context,
                   ),
                   gameOutlinedButton(

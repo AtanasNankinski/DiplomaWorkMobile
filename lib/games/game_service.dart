@@ -4,6 +4,7 @@ import 'package:diploma_work_mobile/misc/error/error_util.dart';
 import 'package:diploma_work_mobile/misc/util/api_config.dart';
 import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
 import 'package:diploma_work_mobile/games/game_model.dart';
+import 'package:diploma_work_mobile/games/game_screens/past_game_model.dart';
 
 class GameService {
   final mockedGames = [
@@ -41,9 +42,33 @@ class GameService {
     }
   }
 
-  Future<List<Game>> getGames() async {
+  Future<bool> createPastGame(int gameId, int team, int userId) async {
     try {
-      final request = await DioInstance().dio.get(ApiConfig.getGames);
+      final formData = FormData.fromMap({
+        'game_id' : gameId,
+        'team' : team,
+        'user_id' : userId,
+      });
+
+      final request = await DioInstance().dio.post(ApiConfig.createPastGame, data: formData);
+
+      if(request.statusCode != null){
+        if(request.statusCode! >= 200 && request.statusCode! < 300) {
+          return true;
+        }
+      }
+      return false;
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
+    } catch(e) {
+      throw "Unknown Error";
+    }
+  }
+
+  Future<List<Game>> getActiveGames() async {
+    try {
+      final request = await DioInstance().dio.get(ApiConfig.getValidGames);
       List<Game> gamesList = [];
 
       if(request.statusCode != null){
@@ -63,9 +88,31 @@ class GameService {
     }
   }
 
+  Future<List<PastGame>> getPastGames() async {
+    try {
+      final request = await DioInstance().dio.get(ApiConfig.getPastGames);
+      List<PastGame> gamesList = [];
+
+      if(request.statusCode != null){
+        if(request.statusCode! >= 200 && request.statusCode! < 300) {
+          final response = request.data['games'];
+          for(var game in response){
+            gamesList.add(PastGame.fromJson(game));
+          }
+        }
+      }
+      return gamesList;
+    } on DioError catch(e) {
+      ErrorUtil.checkDioError(e);
+      rethrow;
+    } catch(e) {
+      throw "Unknown Error";
+    }
+  }
+
   Future<void> joinGame(int userId, int replicaId, int gameId) async {
     final formData = FormData.fromMap({
-      'user_id': userId,
+      'user_id':userId,
       'replica_id':replicaId,
       'game_id':gameId,
     });
@@ -77,5 +124,21 @@ class GameService {
       }
     }
     throw "Error trying to join game.";
+  }
+
+  Future<void> finalizeGame(int userId, int team, int gameId) async {
+    final formData = FormData.fromMap({
+      'game_id':gameId,
+      'team':team,
+      'user_id':userId,
+    });
+    final request = await DioInstance().dio.post(ApiConfig.finalizeGame, data: formData);
+
+    if(request.statusCode != null) {
+      if(request.statusCode! >= 200 && request.statusCode! < 300) {
+        return;
+      }
+    }
+    throw "Error trying to finalize game.";
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:diploma_work_mobile/misc/util/colors.dart';
+
 InputDecoration defaultTextFieldDecoration({required String hintText, required BuildContext context}){
   return InputDecoration(
     hintText: hintText,

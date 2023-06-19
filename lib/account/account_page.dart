@@ -1,4 +1,5 @@
 import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
+import 'package:diploma_work_mobile/components/modals/default_modal_body.dart';
 import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +25,6 @@ class AccountPage extends ConsumerWidget {
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  final List<Replica> mockedReplicas = [
-    const Replica(replicaName: "Shcmaizer", replicaType: "smg", replicaPower: 1.3),
-    const Replica(replicaName: "Baretta", replicaType: "pistol", replicaPower: 1.7),
-    const Replica(replicaName: "Sniper", replicaType: "sniper", replicaPower: 2.3),
-    const Replica(replicaName: "Rifle", replicaType: "assault_rifle", replicaPower: 1.7),
-  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -90,8 +85,9 @@ class AccountPage extends ConsumerWidget {
             padding: const EdgeInsets.only(left: 50, right: 50),
             child: primaryOutlinedButton(
               onPressed: (){
-                showModalBottomSheet(context: context, builder: (context) {
-                  return imagePickModal(
+                defaultModalBody(
+                  context,
+                  imagePickModal(
                     onPressedImage: () {
                       if(user.id != null) {
                         profileProviderRead.changeAvatarFromGallery(user.id!, context);
@@ -102,8 +98,8 @@ class AccountPage extends ConsumerWidget {
                         profileProviderRead.changeAvatarFromCamera(user.id!, context);
                       }
                     },
-                  );
-                });
+                  ),
+                );
               },
               content: "Change Avatar",
               context: context,

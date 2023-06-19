@@ -15,8 +15,9 @@ class BasePageWidget extends ConsumerWidget {
   final Widget child;
   final String title;
   final bool hasDrawer;
+  final bool hasPadding;
 
-  const BasePageWidget({required this.child, required this.title, required this.hasDrawer, Key? key}) : super(key: key);
+  const BasePageWidget({required this.child, required this.title, required this.hasDrawer, this.hasPadding = true, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,6 +38,7 @@ class BasePageWidget extends ConsumerWidget {
         drawer: hasDrawer ? DrawerMenu() : null,
         appBar: AppBar(
           backgroundColor: colorAppBarBG,
+          elevation: 0,
           leading: hasDrawer
               ? null
               : IconButton(
@@ -71,7 +73,7 @@ class BasePageWidget extends ConsumerWidget {
                     child: Stack(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(30.0),
+                          padding: hasPadding ? const EdgeInsets.all(30.0) : EdgeInsets.zero,
                           child: child,
                         ),
                         ref.watch(isLoadingProvider)

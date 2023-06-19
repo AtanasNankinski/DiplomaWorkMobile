@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:diploma_work_mobile/misc/error/error_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/games/player_model.dart';
 import 'package:diploma_work_mobile/games/game_service.dart';
 import 'package:diploma_work_mobile/misc/error/error_util.dart';
 import 'package:diploma_work_mobile/misc/error/error_provider.dart';
+import 'package:diploma_work_mobile/misc/error/error_notifier.dart';
 
 class PlayerNotifier extends AsyncNotifier<Player> {
   final gameService = GameService();

@@ -23,6 +23,7 @@ class ReplicasModal extends ConsumerWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: [
         for(var replica in replicas)
           GestureDetector(
