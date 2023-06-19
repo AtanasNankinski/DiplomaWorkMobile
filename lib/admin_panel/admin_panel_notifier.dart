@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diploma_work_mobile/games/games_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,6 +33,7 @@ class AdminPanelNotifier extends Notifier<String> {
     String stringDate = date.toString();
     if(await gameService.addGame(gameTitle, gameDescription, stringDate, user.id!)) {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      ref.read(activeGamesProvider.notifier).getGames();
       state = "";
     }
   }

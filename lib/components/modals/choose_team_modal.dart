@@ -1,8 +1,9 @@
-import 'package:diploma_work_mobile/games/games_providers.dart';
-import 'package:diploma_work_mobile/misc/util/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:diploma_work_mobile/games/games_providers.dart';
+import 'package:diploma_work_mobile/misc/util/colors.dart';
 
 class ChooseTeamModal extends ConsumerWidget {
   const ChooseTeamModal({Key? key, required this.userId, required this.gameId}) : super(key: key);

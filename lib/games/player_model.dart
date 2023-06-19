@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:diploma_work_mobile/add_replica/replica_model.dart';
+import 'package:diploma_work_mobile/auth/user_model.dart';
 
 @immutable
 class Player {
   final int? id;
-  final int user;
-  final int replica;
+  final String user;
+  final Replica replica;
   final int team;
 
   Player({required this.id, required this.user, required this.replica, required this.team});
@@ -19,6 +21,6 @@ class Player {
   }
 
   factory Player.empty() {
-    return Player(id: null, user: 0, replica: 0, team: 0);
+    return Player(id: null, user: "", replica: Replica.empty(), team: 0);
   }
 }
