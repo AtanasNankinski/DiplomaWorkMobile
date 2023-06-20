@@ -21,42 +21,53 @@ class ReplicasModal extends ConsumerWidget {
       replicas = value;
     });
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for(var replica in replicas)
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-              ref.read(playerProvider.notifier).joinGame(userId, replica.replicaId!, gameId);
-            },
-            child: Container(
-              color: _determineBGColor(replica.replicaPower),
-              padding: EdgeInsets.all(12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(replica.replicaName),
-                  Container(
-                    width: 80,
-                    height: 20,
-                    margin: const EdgeInsets.only(bottom: 6),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                                _determineIcon(_convertReplicaType(replica.replicaType)),
-                            ),
-                            fit: BoxFit.fill
-                        )
-                    ),
-                  ),
-                ],
-              ),
+    return replicas.isEmpty
+        ? Container(
+            padding: const EdgeInsets.all(30),
+            child: const Row(
+              children: [
+                Spacer(),
+                Text("There are no replicas!"),
+                Spacer(),
+              ],
             ),
           )
-      ],
-    );
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for(var replica in replicas)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    ref.read(playerProvider.notifier).joinGame(userId, replica.replicaId!, gameId);
+                  },
+                  child: Container(
+                    color: _determineBGColor(replica.replicaPower),
+                    padding: EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(replica.replicaName),
+                        Container(
+                          width: 80,
+                          height: 20,
+                          margin: const EdgeInsets.only(bottom: 6),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      _determineIcon(_convertReplicaType(replica.replicaType)),
+                                  ),
+                                  fit: BoxFit.fill
+                              )
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+            ],
+          );
   }
 
   String _determineIcon(ReplicaType replicaType){
