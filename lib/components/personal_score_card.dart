@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:diploma_work_mobile/dashboard/score_model.dart';
 import 'package:diploma_work_mobile/misc/util/colors.dart';
-import 'package:flutter/material.dart';
 
 class PersonalScoreCard extends StatelessWidget {
   const PersonalScoreCard({Key? key, required this.score}) : super(key: key);

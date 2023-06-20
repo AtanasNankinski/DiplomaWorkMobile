@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:diploma_work_mobile/games/games_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/games/player_model.dart';
@@ -20,6 +21,7 @@ class PlayerNotifier extends AsyncNotifier<Player> {
   Future<void> joinGame(int userId, int replicaId, int gameId) async {
     try {
       await gameService.joinGame(userId, replicaId, gameId);
+      ref.read(activeGamesProvider.notifier).getGames();
     } on DioError catch(e) {
       final error = ErrorUtil.checkDioErrorString(e);
       if(error == ErrorCodes.wrongCredentials) {

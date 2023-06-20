@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:diploma_work_mobile/add_replica/replica_model.dart';
+import 'package:diploma_work_mobile/misc/error/error_notifier.dart';
 import 'package:diploma_work_mobile/misc/error/error_util.dart';
 import 'package:diploma_work_mobile/misc/util/api_config.dart';
 import 'package:diploma_work_mobile/misc/util_services/interceptor.dart';
@@ -29,6 +30,9 @@ class ReplicaService {
       }
       throw "Server Response Error";
     } on DioError catch(e) {
+      if(ErrorUtil.checkDioErrorString(e) == ErrorCodes.notFound){
+        return [];
+      }
       ErrorUtil.checkDioError(e);
       rethrow;
     } catch(e) {
