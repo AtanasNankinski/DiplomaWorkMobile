@@ -15,7 +15,8 @@ class ErrorUtil {
 
     switch(statusCode){
       case 401:
-        throw ErrorCodes.unauthorized;
+        //throw ErrorCodes.unauthorized;
+        break;
       case 422:
         throw ErrorCodes.wrongCredentials;
       case 404:
