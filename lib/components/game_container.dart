@@ -85,7 +85,7 @@ class GameContainer extends ConsumerWidget {
                   ),
                   gameOutlinedButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, RoutingConst.gameDetails);
+                      Navigator.pushNamed(context, RoutingConst.gameDetails, arguments: game);
                     },
                     content: 'Details',
                     context: context,

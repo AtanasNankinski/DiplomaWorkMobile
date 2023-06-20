@@ -16,8 +16,9 @@ class BasePageWidget extends ConsumerWidget {
   final String title;
   final bool hasDrawer;
   final bool hasPadding;
+  final Future<void> Function()? onRefresh;
 
-  const BasePageWidget({required this.child, required this.title, required this.hasDrawer, this.hasPadding = true, Key? key}) : super(key: key);
+  const BasePageWidget({required this.child, required this.title, required this.hasDrawer, this.hasPadding = true, this.onRefresh, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,31 +64,34 @@ class BasePageWidget extends ConsumerWidget {
             ),
           ),
         ),
-        body: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: hasPadding ? const EdgeInsets.all(30.0) : EdgeInsets.zero,
-                          child: child,
-                        ),
-                        ref.watch(isLoadingProvider)
-                            ? loadingWidget()
-                            : Container(),
-                        errorState.showError
-                            ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
-                            : Container(),
-                      ]
-                    )
+        body: RefreshIndicator(
+          onRefresh: onRefresh ?? () async {},
+          child: SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: hasPadding ? const EdgeInsets.all(30.0) : EdgeInsets.zero,
+                            child: child,
+                          ),
+                          ref.watch(isLoadingProvider)
+                              ? loadingWidget()
+                              : Container(),
+                          errorState.showError
+                              ? ErrorDialog(title: errorState.errorTitle, errorContent: errorState.exception)
+                              : Container(),
+                        ]
+                      )
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),

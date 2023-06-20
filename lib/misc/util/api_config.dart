@@ -21,6 +21,7 @@ class ApiConfig {
   static String createPlayer = "api/create_player";
   static String getPlayers = "api/get_players";
   static String finalizeGame = "api/create_past_game";
+  static String changePlayerTeam = "api/change_player_team";
 
   //Test or not currently used routes
   static String testProfilePic = "api/test_file";

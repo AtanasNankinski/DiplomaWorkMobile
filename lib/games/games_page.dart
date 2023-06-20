@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/games/games_providers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +36,10 @@ class _GamesPageState extends ConsumerState<GamesPage> with TickerProviderStateM
       hasDrawer: true,
       title: "Games",
       hasPadding: false,
+      onRefresh: () async {
+        ref.read(activeGamesProvider.notifier).getGames();
+        ref.read(pastGamesProvider.notifier).getGames();
+      },
       child: Column(
         children: [
           Container(
@@ -43,10 +48,10 @@ class _GamesPageState extends ConsumerState<GamesPage> with TickerProviderStateM
               onTap: (index) {
                 switch(index) {
                   case 0:
-                    ref.read(tabsProvider.notifier).state = TabOptions.active;
+                    ref.read(_tabsProvider.notifier).state = _TabOptions.active;
                     break;
                   case 1:
-                    ref.read(tabsProvider.notifier).state = TabOptions.past;
+                    ref.read(_tabsProvider.notifier).state = _TabOptions.past;
                     break;
                 }
               },
@@ -58,23 +63,23 @@ class _GamesPageState extends ConsumerState<GamesPage> with TickerProviderStateM
                 Tab(
                   child: Text(
                     "Active",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: colorTextMain),
                   ),
                 ),
                 Tab(
                   child: Text(
                     "Past",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: colorTextMain),
                   ),
                 )
               ],
             ),
           ),
           Builder(builder: (_) {
-            switch(ref.watch(tabsProvider)) {
-              case TabOptions.active:
+            switch(ref.watch(_tabsProvider)) {
+              case _TabOptions.active:
                 return const ActiveGamesScreen();
-              case TabOptions.past:
+              case _TabOptions.past:
                 return const PastGamesScreen();
             }
           }),
@@ -84,11 +89,11 @@ class _GamesPageState extends ConsumerState<GamesPage> with TickerProviderStateM
   }
 }
 
-final tabsProvider = StateProvider.autoDispose<TabOptions>(
-      (ref) => TabOptions.active,
+final _tabsProvider = StateProvider.autoDispose<_TabOptions>(
+      (ref) => _TabOptions.active,
 );
 
-enum TabOptions {
+enum _TabOptions {
   active,
   past,
 }

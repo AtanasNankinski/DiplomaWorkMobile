@@ -22,4 +22,6 @@ class RoutingConst {
   static const String addReplicaRoute = "add_replica";
   // Route to the game details page
   static const String gameDetails = "game_details";
+  // Route to the game details page
+  static const String pastGameDetails = "past_game_details";
 }

@@ -22,3 +22,29 @@ Widget sectionSeparator(String title, BuildContext context, bool isFirst) {
     ),
   );
 }
+
+Widget gameSectionSeparator(String title, BuildContext context, bool isFirst, int playerCount) {
+  return Container(
+    margin: EdgeInsets.only(top: isFirst ? 0 : 20, bottom: 20),
+    child: Row(
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        Expanded(
+          child: Container(
+            color: colorMenuSeparator,
+            height: 1,
+            width: double.infinity,
+            margin: const EdgeInsets.only(left: 20, top: 6, bottom: 6, right: 20),
+          ),
+        ),
+        Text(
+          playerCount.toString(),
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ],
+    ),
+  );
+}
