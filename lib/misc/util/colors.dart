@@ -35,6 +35,10 @@ const colorReplicaBoxBG = Color(0xFF9C9177);
 const colorReplicaBoxGreen = Color(0xFF377309);
 const colorReplicaBoxYellow = Color(0xFF967817);
 const colorReplicaBoxRed = Color(0xFF9A3E3F);
+const colorAccountCardBG = Color(0xFF4A5A3F);
+const colorLastGameCardBG = Color(0xFF675D4E);
+const colorScoreCardBG = Color(0xFF78866B);
+final colorVictoryGreen = const Color(0xFF6ED45E).withOpacity(0.8);
 
 //TabBar colors
 const colorTabBarMain = Color(0xFF494940);
@@ -44,7 +48,7 @@ const colorTabBarSelected = Color(0xFF3E3E36);
 const colorModalMain = Color(0xFF494940);
 
 //Game details player list colors
-final colorPlayerBoxBG = Color(0xFF9C9177).withOpacity(0.4);
-final colorPlayerBoxGreen = Color(0xFF377309).withOpacity(0.4);
-final colorPlayerBoxYellow = Color(0xFF967817).withOpacity(0.4);
-final colorPlayerBoxRed = Color(0xFF9A3E3F).withOpacity(0.4);
+final colorPlayerBoxBG = const Color(0xFF9C9177).withOpacity(0.4);
+final colorPlayerBoxGreen = const Color(0xFF377309).withOpacity(0.4);
+final colorPlayerBoxYellow = const Color(0xFF967817).withOpacity(0.4);
+final colorPlayerBoxRed = const Color(0xFF9A3E3F).withOpacity(0.4);
