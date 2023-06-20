@@ -1,12 +1,12 @@
-import 'package:diploma_work_mobile/auth/auth_providers.dart';
-import 'package:diploma_work_mobile/auth/user_model.dart';
-import 'package:diploma_work_mobile/components/modals/default_modal_body.dart';
-import 'package:diploma_work_mobile/components/modals/move_player_modal.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:diploma_work_mobile/games/game_model.dart';
+import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/auth/user_model.dart';
+import 'package:diploma_work_mobile/components/modals/default_modal_body.dart';
+import 'package:diploma_work_mobile/components/modals/move_player_modal.dart';
+import 'package:diploma_work_mobile/games/game_screens/past_game_model.dart';
 import 'package:diploma_work_mobile/components/section_separator.dart';
 import 'package:diploma_work_mobile/games/player_model.dart';
 import 'package:diploma_work_mobile/components/player_list_container.dart';
@@ -15,7 +15,7 @@ import 'package:diploma_work_mobile/game_details/game_details_providers.dart';
 class PlayerListScreen extends ConsumerWidget {
   const PlayerListScreen({Key? key, required this.game}) : super(key: key);
 
-  final Game game;
+  final PastGame game;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

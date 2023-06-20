@@ -1,4 +1,5 @@
 import 'package:diploma_work_mobile/game_details/game_details_page.dart';
+import 'package:diploma_work_mobile/game_details/past_game_details_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:diploma_work_mobile/control_widget/control_widget.dart';
@@ -63,6 +64,11 @@ class Routing {
       case RoutingConst.gameDetails:
         return MaterialPageRoute(
           builder: (context) => GameDetailsPage(),
+          settings: settings,
+        );
+      case RoutingConst.pastGameDetails:
+        return MaterialPageRoute(
+          builder: (context) => PastGameDetailsPage(),
           settings: settings,
         );
       default:

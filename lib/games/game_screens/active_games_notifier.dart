@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:diploma_work_mobile/games/games_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:diploma_work_mobile/games/game_model.dart';
 import 'package:diploma_work_mobile/games/game_service.dart';
 import 'package:diploma_work_mobile/misc/error/error_provider.dart';
 import 'package:diploma_work_mobile/misc/util_services/loading_provider.dart';
+import 'package:diploma_work_mobile/games/games_providers.dart';
 
 class ActiveGamesNotifier extends AsyncNotifier<List<Game>> {
   final gameService = GameService();
@@ -29,6 +29,7 @@ class ActiveGamesNotifier extends AsyncNotifier<List<Game>> {
     });
     state.whenOrNull(
       error: (error, stackTrace){
+        ref.read(isLoadingProvider.notifier).state = false;
         ref.read(errorProvider.notifier).transformError(error.toString());
       },
     );

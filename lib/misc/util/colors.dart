@@ -11,6 +11,7 @@ const colorTextDark = Colors.black;
 final colorTextInputField = Colors.black.withOpacity(0.8);
 const colorTextRed = Colors.red;
 const colorTextBlue = Colors.blueAccent;
+const colorTextNeutral = Colors.grey;
 
 // Button Theme Colors
 const colorButtonMain = Color(0xFF0BDC84);
@@ -41,3 +42,9 @@ const colorTabBarSelected = Color(0xFF3E3E36);
 
 //Modal colors
 const colorModalMain = Color(0xFF494940);
+
+//Game details player list colors
+final colorPlayerBoxBG = Color(0xFF9C9177).withOpacity(0.4);
+final colorPlayerBoxGreen = Color(0xFF377309).withOpacity(0.4);
+final colorPlayerBoxYellow = Color(0xFF967817).withOpacity(0.4);
+final colorPlayerBoxRed = Color(0xFF9A3E3F).withOpacity(0.4);

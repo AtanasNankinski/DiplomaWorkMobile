@@ -72,7 +72,7 @@ class PastGameContainer extends ConsumerWidget {
                   ),
                   gameOutlinedButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, RoutingConst.gameDetails);
+                      Navigator.pushNamed(context, RoutingConst.pastGameDetails, arguments: game);
                     },
                     content: 'Details',
                     context: context,

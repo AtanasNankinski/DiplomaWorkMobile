@@ -1,5 +1,3 @@
-import 'package:diploma_work_mobile/game_details/game_details_providers.dart';
-import 'package:diploma_work_mobile/games/game_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +6,8 @@ import 'package:diploma_work_mobile/components/base_layouts/base_page_widget.dar
 import 'package:diploma_work_mobile/game_details/game_details_screen/overview_screen.dart';
 import 'package:diploma_work_mobile/game_details/game_details_screen/player_list_screen.dart';
 import 'package:diploma_work_mobile/misc/util/colors.dart';
+import 'package:diploma_work_mobile/game_details/game_details_providers.dart';
+import 'package:diploma_work_mobile/games/game_model.dart';
 
 class GameDetailsPage extends ConsumerStatefulWidget {
   const GameDetailsPage({Key? key}) : super(key: key);

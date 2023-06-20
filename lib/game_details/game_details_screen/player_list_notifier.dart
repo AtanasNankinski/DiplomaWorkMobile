@@ -37,4 +37,26 @@ class PlayerListNotifier extends AsyncNotifier<List<Player>>{
         }
     );
   }
+
+  Future<void> changePlayerTeam(int playerId, int team) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      return await gameDetailsService.changePlayerTeam(playerId, team);
+    });
+    state.when(
+        data: (data) {
+          ref.read(isLoadingProvider.notifier).state = false;
+        },
+        error: (error, stackTrace){
+          if(error == ErrorCodes.notFound) {
+            return;
+          }
+          ref.read(isLoadingProvider.notifier).state = false;
+          ref.read(errorProvider.notifier).transformError(error.toString());
+        },
+        loading: () {
+          ref.read(isLoadingProvider.notifier).state = true;
+        }
+    );
+  }
 }
