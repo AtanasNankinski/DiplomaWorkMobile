@@ -15,7 +15,8 @@ class ReplicaNotifier extends AsyncNotifier<List<Replica>> {
   @override
   FutureOr<List<Replica>> build() async {
     try {
-      int userId = ref.watch(userProvider).value!.id!;
+      int? userId = ref.watch(userProvider).value!.id;
+      if(userId == null) return [];
       final replicas = await replicaService.getReplicas(userId);
       if(replicas.isNotEmpty){
         return replicas;

@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:diploma_work_mobile/components/validation_error_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -14,6 +11,7 @@ import 'package:diploma_work_mobile/components/section_separator.dart';
 import 'package:diploma_work_mobile/add_replica/replica_providers.dart';
 import 'package:diploma_work_mobile/components/buttons/primary_dropdown_button.dart';
 import 'package:diploma_work_mobile/auth/auth_providers.dart';
+import 'package:diploma_work_mobile/components/validation_error_text.dart';
 
 class AddReplicaPage extends ConsumerWidget {
   AddReplicaPage({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class AddReplicaPage extends ConsumerWidget {
 
     return BasePageWidget(
       hasDrawer: false,
-      title: "Add Replica",
+      title: isEditing ? "Edit Replica" : "Add Replica",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

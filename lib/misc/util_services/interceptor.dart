@@ -18,7 +18,7 @@ class DioInterceptor extends Interceptor {
       handler.reject(
         DioError(
           requestOptions: options,
-          error: "Unauthorized User",
+          error: "401",
           response: Response(
             statusCode: 401,
             requestOptions: options,
