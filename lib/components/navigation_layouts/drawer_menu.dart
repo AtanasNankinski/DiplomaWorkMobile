@@ -1,3 +1,4 @@
+import 'package:diploma_work_mobile/auth/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +13,7 @@ class DrawerMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int _userType = ref.watch(userProvider).value!.userType;
+    final User _userType = ref.watch(userProvider).value!;
 
     return Drawer(
       backgroundColor: colorDrawerBG,
@@ -23,7 +24,7 @@ class DrawerMenu extends ConsumerWidget {
             children: [
               const SizedBox(height: 12,),
               const BuildMenuHeader(),
-              buildMenuBody(context, _userType),
+              BuildMenuBody(user: _userType,),
             ],
           ),
         ),
