@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:diploma_work_mobile/misc/navigation/routing_constants.dart';
 import 'package:diploma_work_mobile/misc/util/colors.dart';
@@ -73,19 +74,27 @@ class BuildMenuBody extends ConsumerWidget {
             "Help",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          onTap: (){
-
+          onTap: () async {
+            await _launchUrl();
           },
         ),
         Container(
           margin: EdgeInsets.all(16),
           child: Text(
-            "version: 0.0.1",
+            "version: 1.0.0",
             style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.left,
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _launchUrl() async {
+    final Uri supportUrl = Uri.parse('https://en.wikipedia.org/wiki/Airsoft');
+
+    if (!await launchUrl(supportUrl)) {
+      throw Exception('Could not launch $supportUrl');
+    }
   }
 }
