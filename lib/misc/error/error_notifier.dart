@@ -55,7 +55,7 @@ class ErrorNotifier extends Notifier<ErrorModel>{
         createException(exception: ErrorTexts.timeoutText, errorTitle: ErrorTexts.defaultErrorTitle);
         break;
       default:
-        createException(exception: ErrorTexts.defaultText, errorTitle: ErrorTexts.defaultErrorTitle);
+        createException(exception: error, errorTitle: ErrorTexts.defaultErrorTitle);
     }
   }
 }

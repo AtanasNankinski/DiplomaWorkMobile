@@ -19,11 +19,21 @@ class Score {
   });
 
   factory Score.fromJson(Map<String, dynamic> map) {
+    if(map['last_game'] != null) {
+      return Score(
+        id: map['id'] as int?,
+        victories: map['victories'] as int,
+        defeats: map['defeats'] as int,
+        lastGame: PastGame.fromJson(map['last_game']),
+        lastTeam: map['last_team'],
+      );
+    }
+
     return Score(
       id: map['id'] as int?,
       victories: map['victories'] as int,
       defeats: map['defeats'] as int,
-      lastGame: PastGame.fromJson(map['last_game']),
+      lastGame: null,
       lastTeam: map['last_team'],
     );
   }

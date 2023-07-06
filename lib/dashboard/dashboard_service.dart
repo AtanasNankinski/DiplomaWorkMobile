@@ -17,6 +17,7 @@ class DashboardService {
       if(request.statusCode != null){
         if(request.statusCode! >= 200 && request.statusCode! < 300){
           final score = Score.fromJson(request.data);
+
           return score;
         }
       }

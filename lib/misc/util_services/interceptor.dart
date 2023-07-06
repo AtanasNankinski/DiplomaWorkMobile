@@ -11,12 +11,14 @@ class DioInterceptor extends Interceptor {
     if(user.accessToken.isNotEmpty && user != User(id: null, name: "", email: "", userType: 0, accessToken: "")){
       options.headers['accept'] = 'application/json';
       options.headers['authorization'] = "Bearer ${user.accessToken}";
+      options.headers['connection'] = 'keep-alive';
       super.onRequest(options, handler);
     }else {
+      await Future.delayed(Duration(seconds: 2));
       handler.reject(
         DioError(
           requestOptions: options,
-          error: "Unauthorized User",
+          error: "401",
           response: Response(
             statusCode: 401,
             requestOptions: options,

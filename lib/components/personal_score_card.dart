@@ -73,6 +73,10 @@ class PersonalScoreCard extends StatelessWidget {
   }
 
   String _determineVDRatio(Score score) {
+    if(score.victories == 0 && score.defeats == 0) return 'N/A';
+    if(score.victories == 0 && score.defeats != 0) return score.defeats.toString();
+    if(score.victories != 0 && score.defeats == 0) return score.victories.toString();
+
     return (score.victories/score.defeats).toStringAsFixed(1);
   }
 
